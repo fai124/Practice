@@ -1,0 +1,359 @@
+/* Reset & base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #eef2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Frame-3 контейнер */
+.frame-3 {
+  background: #ffffff;
+  width: 100%;
+  max-width: 1920px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/* Блок аватара и имени */
+.avatar-label-group {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+.avatar {
+  border-radius: 200px;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.text-and-supporting-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+/* Имя пользователя */
+.avatar-name {
+  color: #404040;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+/* Email пользователя */
+.avatar-email {
+  color: #525252;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+/* Заголовок "Категории" */
+.categories-title {
+  color: #000000;
+  font-family: 'Mukta Malar', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 20px;
+  position: absolute;
+  left: 310px;
+  top: 85px;
+}
+
+/* Линия-разделитель */
+.line-1 {
+  border-top: 2px solid #227441;
+  width: 1150px;
+  position: absolute;
+  left: 310px;
+  top: 115px;
+}
+
+/* Сетка карточек */
+.cards-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 38px;
+  row-gap: 40px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  width: 806px;
+  position: absolute;
+  left: 556px;
+  top: 123px;
+}
+
+/* Карточка услуги */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 384px;
+  box-shadow: 0px 1px 2px 0px rgba(29, 41, 61, 0.05);
+  overflow: hidden;
+}
+
+/* Изображение карточки (заглушка) */
+.card-image {
+  border-radius: 12px 12px 0px 0px;
+  align-self: stretch;
+  height: 192px;
+  background: linear-gradient(135deg, #d4e6d4 0%, #a8c9a8 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Тело карточки */
+.card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+}
+
+.heading-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+}
+
+/* Заголовок карточки */
+.card-heading {
+  color: #101828;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.4px;
+  align-self: stretch;
+}
+
+/* Контейнер кнопки */
+.card-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+/* Кнопка "Подробнее" */
+.card-button {
+  background: #227441;
+  border-radius: 12px;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease, transform 0.1s ease;
+  box-shadow: 0px 1px 0.5px 0.05px rgba(29, 41, 61, 0.02);
+}
+
+.card-button:hover {
+  background: #1a5f36;
+}
+
+.card-button:active {
+  transform: scale(0.97);
+}
+
+.card-button-text {
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+/* Пагинация */
+.pagination {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  left: 865px;
+  top: 865px;
+}
+
+/* Кнопки пагинации */
+.pagination-button {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0px 1px 0.5px 0.05px rgba(29, 41, 61, 0.02);
+}
+
+.pagination-button:hover {
+  background: #f9fafb;
+  border-color: #227441;
+}
+
+.pagination-text {
+  color: #4a5565;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+/* Иконки стрелок */
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Адаптивность */
+@media (max-width: 1400px) {
+  .cards-grid {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    justify-content: center;
+  }
+  
+  .categories-title,
+  .line-1,
+  .pagination {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .line-1 {
+    width: 90%;
+  }
+  
+  .categories-title {
+    width: auto;
+    white-space: nowrap;
+  }
+  
+  .pagination {
+    left: 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  .cards-grid {
+    gap: 20px;
+  }
+  
+  .card {
+    width: calc(50% - 20px);
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .frame-3 {
+    height: auto;
+    min-height: 1080px;
+    padding-bottom: 100px;
+  }
+  
+  .cards-grid {
+    position: relative;
+    left: auto;
+    top: 160px;
+    transform: none;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: center;
+  }
+  
+  .categories-title {
+    position: relative;
+    left: auto;
+    top: 20px;
+    transform: none;
+    text-align: center;
+    margin-bottom: 20px;
+    white-space: normal;
+  }
+  
+  .line-1 {
+    position: relative;
+    left: auto;
+    top: 30px;
+    transform: none;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .avatar-label-group {
+    position: relative;
+    left: auto;
+    top: 0;
+    padding: 20px;
+  }
+  
+  .pagination {
+    position: relative;
+    left: auto;
+    top: 200px;
+    transform: none;
+    justify-content: center;
+    margin: 40px auto;
+    width: fit-content;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    width: 100%;
+  }
+}

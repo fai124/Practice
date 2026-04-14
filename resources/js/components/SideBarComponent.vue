@@ -1,0 +1,140 @@
+<template>
+        <section id="sidebar">
+            <!-- Intro -->
+            <section id="intro">
+                <a href="#" class="logo"
+                    ><img src="images/logo.jpg" alt=""
+                /></a>
+                <header>
+                    <h2>Blog</h2>
+                    <p>Be popular with us</p>
+                </header>
+            </section>
+
+            <!-- Mini Posts -->
+            <section>
+                <h3>Popular posts</h3>
+                <div class="mini-posts">
+                    <!-- Mini Post -->
+                    <article class="mini-post" v-for="popular in populars">
+                        <header>
+                            <h3><a href="#" @click.prevent="changePage('SinglePage', popular_id)">{{ popular.name }}</a></h3>
+                            <time class="published" datetime="2015-10-20"
+                                >1 Ноября 2015</time
+                            >
+                            <a href="#" @click.prevent="changePage('UserPage', popular.user_id)" class="author"
+                                ><img :src="PUBLIC + popular.user.avatar" alt=""
+                            /></a>
+                        </header>
+                        <a href="#" @click.prevent="changePage('SinglePage', popular_id)" class="image"
+                            ><img :src="PUBLIC + popular.photo" alt=""
+                        /></a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Posts List -->
+            <section>
+                <h3>Rating bloggers</h3>
+
+                <ul class="posts">
+                    <li>
+                        <article>
+                            <header>
+                                <h3>
+                                    <a href="#"
+                                        >Lorem ipsum fermentum ut nisl vitae</a
+                                    >
+                                </h3>
+                                <span class="published"
+                                    >30 likes in 10 posts</span
+                                >
+                            </header>
+                            <a href="#" class="image"
+                                ><img src="images/pic08.jpg" alt=""
+                            /></a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h3>
+                                    <a href="#"
+                                        >Convallis maximus nisl mattis nunc id
+                                        lorem</a
+                                    >
+                                </h3>
+                                <span class="published"
+                                    >30 likes in 10 posts</span
+                                >
+                            </header>
+                            <a href="#" class="image"
+                                ><img src="images/pic09.jpg" alt=""
+                            /></a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h3>
+                                    <a href="#"
+                                        >Euismod amet placerat vivamus
+                                        porttitor</a
+                                    >
+                                </h3>
+                                <span class="published"
+                                    >20 likes in 5 posts</span
+                                >
+                            </header>
+                            <a href="#" class="image"
+                                ><img src="images/pic10.jpg" alt=""
+                            /></a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h3>
+                                    <a href="#"
+                                        >Magna enim accumsan tortor cursus
+                                        ultricies</a
+                                    >
+                                </h3>
+                                <span class="published"
+                                    >10 likes in 15 posts</span
+                                >
+                            </header>
+                            <a href="#" class="image"
+                                ><img src="images/pic11.jpg" alt=""
+                            /></a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h3>
+                                    <a href="#"
+                                        >Congue ullam corper lorem ipsum
+                                        dolor</a
+                                    >
+                                </h3>
+                                <span class="published">1 likes in 1 post</span>
+                            </header>
+                            <a href="#" class="image"
+                                ><img src="images/pic12.jpg" alt=""
+                            /></a>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Footer -->
+
+        </section>
+</template>
+<script>
+export default {
+    name: 'SideBarComponent',
+    props: ['datasend', 'PUBLIC', 'pageId', 'changePage', 'populars'],
+};
+</script>
