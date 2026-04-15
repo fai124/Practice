@@ -145,7 +145,7 @@
             </div>
 
             <!-- Кнопка -->
-            <button type="submit" class="button" @click="register">
+            <button type="button" class="button" @click="register">
                 <span class="button-text" >Регистрация</span>
             </button>
         </form>
@@ -154,7 +154,7 @@
 <script>
 name: 'RegPage';
 export default {
-    props: ['datasend', 'PUBLIC', 'pageId', 'changePage'],
+    props: ['datasend', 'PUBLIC', 'pageId', 'changePage','changeToken'],
     data() {
         return {
             username: null,
@@ -171,8 +171,8 @@ export default {
             if (this.username) formdata.append('username', this.username);
             if (this.fullname) formdata.append('fullname', this.fullname);
             if (this.password) formdata.append('password', this.password);
-            if (this.email) formdata.append('password', this.email);
-            if (this.number) formdata.append('password', this.number);
+            if (this.email) formdata.append('email', this.email);
+            if (this.number) formdata.append('number', this.number);
 
             this.datasend('register', 'POST', formdata).then((result) => {
                 console.log(result);

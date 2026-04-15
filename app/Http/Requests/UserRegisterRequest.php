@@ -27,6 +27,7 @@ class UserRegisterRequest extends FormRequest
             "number"=>"required|min:3",
             "email"=>"required|min:3",
             "password"=>"required",
+            "avatar" => "nullable|image|mimes:jpg,jpeg,png|max:2048",
         ];
     }
 }

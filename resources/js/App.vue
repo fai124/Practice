@@ -5,7 +5,7 @@
 
         <!-- Menu -->
         <AuthPage v-if="page == 'AuthPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
-        <RegPage v-if="page == 'RegPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
+        <RegPage v-if="page == 'RegPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :changeToken="changeToken"/>
         <CategoryPage v-if="page == 'CategoryPage'"/>
         <PersonalPage v-if="page == 'PersonalPage'"/>
         <ServPage v-if="page == 'ServPage'"/>

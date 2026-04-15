@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('fullname');
-            $table->string('avatar');
+            $table->string('avatar')->nullable()->default('avatars/default.png')->change();
             $table->string('email');
             $table->string('number');
             $table->enum('role', ['admin', 'user'])->default('user');
@@ -48,5 +48,8 @@ return new class extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::table('users', function (Blueprint $table) {
+        $table->string('avatar')->change();
+    });
     }
 };
