@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Авторизация</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div class="frame-1">
+<template>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@400;500&display=swap" rel="stylesheet">
+<div class="frame-1">
     <div class="rectangle-3"></div>
     
     <form class="frame-12" id="registration-form">
@@ -20,7 +13,7 @@
           </div>
         </div>
         <div class="input-field">
-          <img class="input-icon" src="user0.svg" alt="login">
+          <img class="input-icon" src="/icons/user0.svg" alt="login">
           <input type="text" class="input-text" placeholder="Логин" name="login">
         </div>
       </div>
@@ -33,14 +26,14 @@
           </div>
         </div>
         <div class="input-field">
-          <img class="input-icon" src="user0.svg" alt="password">
+          <img class="input-icon" src="/icons/user0.svg" alt="password">
           <input type="password" class="input-text" placeholder="Пароль" name="password">
         </div>
       </div>
 
       <!-- Helper ссылка -->
       <div class="helper">
-        Еще не зарегистрированы?<a href="#" class="helper-link">Зарегистрируйтес</a>
+        Еще не зарегистрированы?<a href="#" class="helper-link" @click.prevent="changePage('RegPage')">Зарегистрируйтесь</a>
       </div>
 
       <!-- Кнопка -->
@@ -49,5 +42,19 @@
       </button>
     </form>
   </div>
-</body>
-</html>
+</template>
+<script>
+export default {
+    props: ['datasend', 'PUBLIC', 'pageId', 'changePage'],
+    data() {
+        return {
+            username: null,
+            password: null,
+            fullname: null,
+            email: null,
+            number: null,
+            errors: {},
+        };
+    },
+};
+</script>

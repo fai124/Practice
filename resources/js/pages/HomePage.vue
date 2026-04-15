@@ -19,7 +19,7 @@
     <SideBarComponent :populars="populars" :changePage="changePage" :datasend="datasend" :PUBLIC="PUBLIC"/>
 </template>
 <script>
-import { disable } from '@/routes/two-factor';
+//import { disable } from '@/routes/two-factor';
 import PostComponent from '../components/PostComponent.vue';
 import SideBarComponent from '../components/SideBarComponent.vue';
 

@@ -33,8 +33,8 @@
     <button type="button" class="button big fit" @click="register">Зарегистрироваться</button>
 </template>
 <script>
-import { register } from '@/routes';
-import password from '@/routes/password';
+//import { register } from '@/routes';
+//import password from '@/routes/password';
 
 export default {
     props: ['datasend', 'changeToken'],

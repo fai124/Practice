@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('fullname');
             $table->string('avatar');
+            $table->string('email');
+            $table->string('number');
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('password');
             $table->rememberToken();

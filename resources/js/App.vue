@@ -2,42 +2,36 @@
     <!-- Wrapper -->
     <div id="wrapper">
         <!-- Header -->
-        <HeaderComponent
-            :userInfo="userInfo"
-            :PUBLIC="PUBLIC"
-            :changePage="changePage"
-        />
 
         <!-- Menu -->
-        <MenuComponent
-            :logout="logout"
-            :datasend="datasend"
-            :user="user"
-            :changeToken="changeToken"
-            :changePage="changePage"
-        />
+        <AuthPage v-if="page == 'AuthPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
+        <RegPage v-if="page == 'RegPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
+        <CategoryPage v-if="page == 'CategoryPage'"/>
+        <PersonalPage v-if="page == 'PersonalPage'"/>
+        <ServPage v-if="page == 'ServPage'"/>
         <HomePage v-if="page == 'HomePage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <PostAdd v-if="page == 'PostAdd'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <SinglePage v-if="page == 'SinglePage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <UserPage v-if="page == 'UserPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
     </div>
-    <FooterComponent />
 </template>
 
 <script>
-import MenuComponent from './components/MenuComponent.vue';
-import HeaderComponent from './components/HeaderComponent.vue';
-import FooterComponent from './components/FooterComponent.vue';
 import HomePage from './pages/HomePage.vue';
 import PostAdd from './pages/PostAdd.vue';
 import SinglePage from './pages/SinglePage.vue';
 import UserPage from './pages/UserPage.vue';
+import RegPage from './pages/RegPage.vue';
+import AuthPage from './pages/AuthPage.vue';
+import CategoryPage from './pages/CategoryPage.vue';
+import PersonalPage from './pages/PersonalPage.vue';
+import ServPage from './pages/ServPage.vue';
 
 export default {
     name: 'App',
     data() {
         return {
-            page: localStorage.getItem('page')||'HomePage',
+            page: 'RegPage',
             pageId: localStorage.getItem('pageId')||null,
             API: 'http://127.0.0.1:8000/api/',
             PUBLIC: 'http://127.0.0.1:8000/storage/',
@@ -46,13 +40,15 @@ export default {
         };
     },
     components: {
-        MenuComponent,
-        HeaderComponent,
-        FooterComponent,
         HomePage,
         PostAdd,
         SinglePage,
         UserPage,
+        RegPage,
+        AuthPage,
+        CategoryPage,
+        PersonalPage,
+        ServPage,
     },
     mounted() {
         if (localStorage.getItem('token')) {
@@ -121,7 +117,7 @@ export default {
                 (response) => {
                     if(response.status == 401){
                          localStorage.removeItem('token');
-                         this.changePage('HomePage');
+                         this.changePage('CategoryPage');
                         this.user = false;
                         this.userInfo = {};
                     }
