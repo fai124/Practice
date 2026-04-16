@@ -18,50 +18,50 @@ class UserController extends Controller
         $user = new User();
         $user->fullname = $request->fullname;
         $user->username = $request->username;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->number = $request->number;
-        $path = Storage::disk("public")->putFile("avatars", $request->file("avatar"));
-        $user->avatar = $path;
+        $user->role = 'user';
+        $user->avatar = 'avatars/default.png';
         $user->save();
         return response()->json(["token" => $user->createToken("api")->plainTextToken]);
     }
     public function auth(UserAuthRequest $request)
-{
- if($request->username ==='admin' && $request ->password === 'admin'){
-    $user = User::where('username', 'admin')->first();
-    if (!$user) {
-        $user = User::create([
-            'fullname' => 'Administrator',
-            'username' => 'admin',
-            'password' => Hash::make('admin'),
-            'email' => null,
-            'avatar' => null,
-            'number' => null,
-            'role' => 'admin',
-        ]);
-    }
-    return response()->json([
-        'token' => $user->createToken('api')->plainTextToken
-    ]);
- }   
+    {
+        if ($request->username === 'admin' && $request->password === 'admin') {
+            $user = User::where('username', 'admin')->first();
+            if (!$user) {
+                $user = User::create([
+                    'fullname' => 'Administrator',
+                    'username' => 'admin',
+                    'password' => Hash::make('admin'),
+                    'email' => 'admin@admin.com',
+                    'avatar' => 'avatars/default.png',
+                    'number' => 'admin',
+                    'role' => 'admin',
+                ]);
+            }
+            return response()->json([
+                'token' => $user->createToken('api')->plainTextToken
+            ]);
+        }
 
-$user = User::where('username', $request->username)->first();
-    if (!$user || !Hash::check($request->password, $user->password)) {
+        $user = User::where('username', $request->username)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'ok',
+                'errors' => [
+                    'password' => ['Неверный логин или пароль']
+                ]
+            ]);
+        }
         return response()->json([
-            'message' => 'ok',
-            'errors' => [
-                'password' => ['Неверный логин или пароль']
-            ]
+            'token' => $user->createToken('api')->plainTextToken
         ]);
     }
-    return response()->json([
-        'token' => $user->createToken('api')->plainTextToken
-    ]);
-}
-public function logout(Request $request)
-{
-    $request -> user()->currentAccessToken()->delete();
-    return response()->json(['message' => 'ok',]);
-}
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'ok',]);
+    }
 }

@@ -4,10 +4,10 @@
         <!-- Header -->
 
         <!-- Menu -->
-        <AuthPage v-if="page == 'AuthPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
-        <RegPage v-if="page == 'RegPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :changeToken="changeToken"/>
-        <CategoryPage v-if="page == 'CategoryPage'"/>
-        <PersonalPage v-if="page == 'PersonalPage'"/>
+        <AuthPage v-if="page == 'AuthPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :changeToken="changeToken"/>
+        <RegPage v-if="page == 'RegPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :changeToken="changeToken" :logout="logout"/>
+        <CategoryPage v-if="page == 'CategoryPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
+        <PersonalPage v-if="page == 'PersonalPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :logout="logout"/>
         <ServPage v-if="page == 'ServPage'"/>
         <HomePage v-if="page == 'HomePage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <PostAdd v-if="page == 'PostAdd'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
@@ -31,7 +31,7 @@ export default {
     name: 'App',
     data() {
         return {
-            page: 'RegPage',
+            page: localStorage.getItem('page')||'RegPage',
             pageId: localStorage.getItem('pageId')||null,
             API: 'http://127.0.0.1:8000/api/',
             PUBLIC: 'http://127.0.0.1:8000/storage/',
@@ -61,7 +61,7 @@ export default {
                 .then((result) => {
                     if (result) {
                         localStorage.removeItem('token');
-                        this.changePage('HomePage');
+                        this.changePage('AuthPage');
                         this.user = false;
                         this.userInfo = {};
                         console.log(result);
@@ -85,6 +85,9 @@ export default {
                 .then((response) => {
                     this.user = true;
                     this.userInfo = response;
+                    if (response.avatar) {
+                        localStorage.setItem('avatar', response.avatar);
+                    }
                 })
                 .catch((error) => {
                     console.error(error);
@@ -117,7 +120,7 @@ export default {
                 (response) => {
                     if(response.status == 401){
                          localStorage.removeItem('token');
-                         this.changePage('CategoryPage');
+                         this.changePage('RegPage');
                         this.user = false;
                         this.userInfo = {};
                     }

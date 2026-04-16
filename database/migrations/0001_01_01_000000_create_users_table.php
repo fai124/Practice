@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('fullname');
-            $table->string('avatar')->nullable()->default('avatars/default.png')->change();
+            $table->string('avatar')->nullable()->default('storage/avatars/default.png');
             $table->string('email');
             $table->string('number');
             $table->enum('role', ['admin', 'user'])->default('user');

@@ -4,12 +4,12 @@
 <div class="frame-5">
     <!-- Кнопка "Назад" -->
     <button class="back-button">
-      <img class="back-icon" src="/icons/corner-up-left0.svg" alt="back">
+      <a href="" @click.prevent="changePage('CategoryPage')"><img class="back-icon" src="/icons/corner-up-left0.svg" alt="back"></a>
     </button>
 
     <!-- Блок с аватаром -->
     <div class="avatar-section">
-      <img class="profile-image" src="/icons/image0.png" alt="profile avatar">
+      <img class="profile-image" :src="PUBLIC +userInfo.avatar" alt="profile avatar">
       <div class="profile-info">
         <h2 class="profile-name">ФИО пользователя</h2>
         <div class="profile-email-row">
@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <button class="exit-button">
+    <button class="exit-button" @click="logout()">
           <span class="confirm-button-text">Выйти</span>
         </button>
 
@@ -97,5 +97,27 @@
   </div>
 </template>
 <script>
-name: 'PersonalPage'
+export default {
+  name: 'PersonalPage',
+    props: ['datasend', 'PUBLIC', 'pageId', 'changePage','changeToken','logout'],
+         data() {
+      return {
+        userInfo: {},
+      }
+    },
+    mounted(){
+      this.getUserInfo();
+    },
+    methods: {
+      getUserInfo() {
+        this.datasend('user')
+        .then((response) => {
+          this.userInfo = response;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      }
+    }
+};
 </script>

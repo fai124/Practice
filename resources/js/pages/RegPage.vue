@@ -154,7 +154,7 @@
 <script>
 name: 'RegPage';
 export default {
-    props: ['datasend', 'PUBLIC', 'pageId', 'changePage','changeToken'],
+    props: ['datasend', 'PUBLIC', 'pageId', 'changePage','changeToken','logout'],
     data() {
         return {
             username: null,
@@ -181,6 +181,7 @@ export default {
                 }
                 if (result.token) {
                     this.changeToken(result.token);
+                    this.changePage('CategoryPage')
                 }
             });
             // .catch((error) => console.error(error));
