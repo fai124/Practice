@@ -1,0 +1,249 @@
+/* Убираем глобальные стили body, которые ломают карточку */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Убираем body стили, чтобы не влиять на родительскую страницу */
+/* Вместо этого все стили внутри .create-service-page */
+
+.create-service-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #ffffff;
+  font-family: 'Inter', sans-serif;
+  padding: 20px;
+}
+
+.service-card {
+  background: #227441;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 1150px;
+  padding: 32px 40px 48px 40px;
+  box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Стили для пользовательской информации (если AvatarComponent их не предоставляет) */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 200px;
+  object-fit: cover;
+  background: #e0e0e0;
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.user-name {
+  color: #404040;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.user-email {
+  color: #525252;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.back-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.back-button:hover {
+  opacity: 0.7;
+}
+
+.back-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.form-title {
+  color: #e5e7eb;
+  font-family: 'Mukta Malar', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 38px;
+  margin-bottom: 32px;
+}
+
+.service-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.form-label {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.form-input,
+.form-textarea {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #1f1f1f;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  resize: vertical;
+  transition: all 0.2s;
+}
+
+/* Исправление для textarea - полная ширина */
+.form-textarea {
+  min-height: 100px;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #737373;
+  font-family: 'Inter', sans-serif;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #227441;
+  box-shadow: 0 0 0 2px rgba(34, 116, 65, 0.2);
+}
+
+/* Стили для file input - полная ширина */
+.file-input {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: #737373;
+  width: 100%;
+  cursor: pointer;
+  display: block;
+}
+
+/* Стилизация кнопки выбора файла */
+.file-input::-webkit-file-upload-button {
+  background: #f9fafb;
+  border: 1px solid #d4d4d4;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #737373;
+  cursor: pointer;
+  margin-right: 12px;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.file-input::-webkit-file-upload-button:hover {
+  background: #f0f0f0;
+  border-color: #b0b0b0;
+}
+
+/* Для Firefox */
+.file-input::file-selector-button {
+  background: #f9fafb;
+  border: 1px solid #d4d4d4;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #737373;
+  cursor: pointer;
+  margin-right: 12px;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.file-input::file-selector-button:hover {
+  background: #f0f0f0;
+  border-color: #b0b0b0;
+}
+
+.submit-btn {
+  background: #f9fafb;
+  border: 1px solid #d4d4d4;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #737373;
+  cursor: pointer;
+  width: fit-content;
+  min-width: 160px;
+  margin-top: 8px;
+  transition: all 0.2s;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
+}
+
+.submit-btn:hover {
+  background: #e8e8e8;
+  border-color: #a0a0a0;
+  color: #2c2c2c;
+}
+
+@media (max-width: 800px) {
+  .service-card {
+    padding: 24px 20px 32px 20px;
+  }
+  
+  .form-title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+  
+  .submit-btn {
+    width: 100%;
+  }
+}

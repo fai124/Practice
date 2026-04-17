@@ -8,7 +8,8 @@
         <RegPage v-if="page == 'RegPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :changeToken="changeToken" :logout="logout"/>
         <CategoryPage v-if="page == 'CategoryPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <PersonalPage v-if="page == 'PersonalPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :logout="logout"/>
-        <ServPage v-if="page == 'ServPage'"/>
+        <ServPage v-if="page == 'ServPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
+        <ServAddPage v-if="page == 'ServAddPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <HomePage v-if="page == 'HomePage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <PostAdd v-if="page == 'PostAdd'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <SinglePage v-if="page == 'SinglePage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
@@ -26,6 +27,7 @@ import AuthPage from './pages/AuthPage.vue';
 import CategoryPage from './pages/CategoryPage.vue';
 import PersonalPage from './pages/PersonalPage.vue';
 import ServPage from './pages/ServPage.vue';
+import ServAddPage from './pages/ServAddPage.vue';
 
 export default {
     name: 'App',
@@ -49,6 +51,7 @@ export default {
         CategoryPage,
         PersonalPage,
         ServPage,
+        ServAddPage,
     },
     mounted() {
         if (localStorage.getItem('token')) {

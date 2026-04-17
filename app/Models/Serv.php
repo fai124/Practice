@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Like;
 
-class Post extends Model
+class Serv extends Model
 {
     public function user(): BelongsTo
     {

@@ -1,24 +1,18 @@
 <template>
       <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@400;500&display=swap" rel="stylesheet">
-<div class="frame-4">
+<div class="frame-4" v-if="serv">
     <!-- Шапка с аватаром пользователя -->
-    <div class="avatar-label-group">
-      <img class="avatar" src="/icons/avatar0.png" alt="avatar">
-      <div class="text-and-supporting-text">
-        <div class="user-name">ФИО пользователя</div>
-        <div class="user-email">user@mail.com</div>
-      </div>
-    </div>
+    <AvatarComponent :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
 
     <!-- Основной блок с услугой -->
     <div class="service-block">
-      <h1 class="service-title">Услуга</h1>
+      <h1 class="service-title">{{ serv.name }}</h1>
       <div class="service-content">
         <div class="service-image-placeholder"></div>
-        <img class="service-main-img" src="/icons/rectangle-30.png" alt="service image">
+        <img class="service-main-img" :src="PUBLIC + serv.photo" alt="service image">
         <div class="service-description-bg"></div>
-        <p class="service-description-text">Описание услуги. Здесь может быть подробная информация о предоставляемой услуге, её особенностях, стоимости и условиях.</p>
+        <p class="service-description-text">{{ serv.content }}</p>
       </div>
     </div>
 
@@ -39,7 +33,7 @@
             <input type="text" class="comment-input" placeholder="Комментарий" name="comment">
             <img class="close-icon" src="/icons/close0.svg" alt="clear">
           </div>
-          <button class="submit-button">
+          <button class="submit-button" type="button" @click="addComment">
             <span class="submit-button-text">отправить</span>
           </button>
         </div>
@@ -48,14 +42,13 @@
       <!-- Комментарий пользователя -->
       <div class="user-comment">
         <div class="comment-avatar-group">
-          <img class="comment-avatar" src="/icons/avatar1.png" alt="user avatar">
+          <img class="comment-avatar"  alt="user avatar">
           <div class="comment-user-info">
             <div class="comment-user-name">ФИО пользователя</div>
             <div class="comment-user-email">user@mail.com</div>
           </div>
         </div>
         <div class="comment-bubble"></div>
-        <p class="comment-text">* Отличная услуга! Всё понравилось, буду рекомендовать друзьям.</p>
       </div>
 
       <!-- Блок лайков и ответа -->
@@ -80,5 +73,67 @@
   </div>
 </template>
 <script>
-name: 'ServPage'
+import AvatarComponent from '@/components/AvatarComponent.vue';
+
+export default {
+    name: 'SinglePage',
+    props: ['datasend', 'PUBLIC', 'pageId', 'changePage' ],
+    components:{
+      AvatarComponent,
+    },
+    data() {
+        return {
+            serv: null,
+            comments: [],
+            isAdmin: false,
+            isLike: false,
+            isAuth: localStorage.getItem("token")?true:false,
+            errors: {},
+        };
+    },
+    mounted() {
+        this.getServ();
+    },
+    methods: {
+        likeClick(){
+            if(!this.isAuth){
+                alert("Авторизуйтесь");
+            }
+            this.datasend('like/'+ this.pageId).then((result) => {
+                console.log(result.like_count);
+                this.serv.likes_count =result.like_count;
+                this.serv.isLike =result.isLike;
+                this.isLike = !this.isLike;
+            });
+        },
+        getServ() {
+            this.datasend((this.isAuth?'servAuth/': 'serv/') + this.pageId).then((result) => {
+                this.serv = result.serv;
+                this.comments = result.comments;
+                this.isAdmin = result.isAdmin;
+                this.isLike = result.isLike;
+                console.log(result);
+            });
+        },
+        addComment() {
+            let formdata = new FormData();
+            if (this.comment) formdata.append('comment', this.comment);
+            this.datasend('comment/' + this.pageId, 'POST', formdata).then(
+                (result) => {
+                    if (result.errors) {
+                        this.errors = result.errors;
+                    } else {
+                        this.getServ();
+                    }
+                },
+            );
+        },
+        deletePost() {
+            this.datasend("destroy/" + this.pageId).then((result) => {
+                console.log(result);
+                this.changePage("CategoryPage");
+            });
+    },
+}
+};
 </script>
