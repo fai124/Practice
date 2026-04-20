@@ -23,10 +23,10 @@ class ServController extends Controller
         $servs = Serv::withCount("comments", "likes")->with("user")->paginate(1);
         // $populars = Post::withCount("comments", "likes")->with("user")->limit(1)->get();
         $populars = Serv::withCount('likes', 'comments')->with('user')->orderBy('likes_count', 'desc')->limit(4)->get();
-        return response()->json(["posts" => $servs, 'populars' => $populars]);
+        return response()->json(["servs" => $servs, 'populars' => $populars]);
     }
 
-    public function postuser(User $user)
+    public function servuser(User $user)
     {
         return Serv::where("user_id", $user->id)->withCount("comments", "likes")->with("user")->get();
     }
@@ -61,7 +61,7 @@ class ServController extends Controller
     public function show($serv)
     {
         $serv = Serv::with('user')->withCount('likes', 'comments')->findOrFail($serv);
-        $comments = Comment::with('user')->where('post_id', $serv->id)->get();
+        $comments = Comment::with('user')->where('serv_id', $serv->id)->get();
         $isLike = false;
         $isAdmin = false;
         if((Auth::check())){

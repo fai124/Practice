@@ -18,7 +18,7 @@
   background: #ffffff;
   width: 100%;
   max-width: 1920px;
-  height: 1080px;
+  height: 2000px;
   position: relative;
   overflow: hidden;
   margin: 0 auto;
@@ -296,6 +296,7 @@
 .user-comment {
   position: relative;
   width: 100%;
+  margin-bottom: 30px;
 }
 
 .comment-avatar-group {
@@ -304,7 +305,6 @@
   gap: 12px;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 8px;
 }
 
 .comment-avatar {
@@ -341,12 +341,25 @@
   background: #f9fafb;
   border-radius: 20px;
   border: 1px solid #e5e5e5;
-  width: 420px;
-  height: 55px;
+  width: 100%;
+  max-width: 500px;
+  min-height: 55px;
   position: absolute;
   left: 0;
   top: 50px;
-  z-index: 0;
+  margin-top: 8px;
+  padding: 12px 20px;
+  word-wrap: break-word;
+  box-sizing: border-box;
+}
+.comment-bubble p,
+.comment-bubble span {
+  color: #000;
+  font-family: 'Mukta Malar', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
 }
 
 .comment-text {
@@ -369,8 +382,8 @@
   gap: 22px;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 10px;
-  margin-left: 440px;
+  margin-top: 30px;
+  margin-left: 550px;
 }
 
 .like-button {

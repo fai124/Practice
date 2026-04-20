@@ -21,64 +21,7 @@
         <!-- Сетка карточек услуг -->
         <div class="cards-grid">
             <!-- Карточка 1 -->
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-body">
-                    <div class="heading-badge">
-                        <h3 class="card-heading">Услуга</h3>
-                    </div>
-                    <div class="card-buttons">
-                        <button class="card-button">
-                            <span class="card-button-text">Подробнее</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Карточка 2 -->
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-body">
-                    <div class="heading-badge">
-                        <h3 class="card-heading">Услуга</h3>
-                    </div>
-                    <div class="card-buttons">
-                        <button class="card-button">
-                            <span class="card-button-text">Подробнее</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Карточка 3 -->
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-body">
-                    <div class="heading-badge">
-                        <h3 class="card-heading">Услуга</h3>
-                    </div>
-                    <div class="card-buttons">
-                        <button class="card-button">
-                            <span class="card-button-text">Подробнее</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Карточка 4 -->
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-body">
-                    <div class="heading-badge">
-                        <h3 class="card-heading">Услуга</h3>
-                    </div>
-                    <div class="card-buttons">
-                        <button class="card-button">
-                            <span class="card-button-text">Подробнее</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+             <ServComponent v-for="serv in servs.data" :serv="serv" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         </div>
 
         <!-- Пагинация -->
@@ -104,12 +47,35 @@
 </template>
 <script>
 import AvatarComponent from '@/components/AvatarComponent.vue';
+import ServComponent from '@/components/ServComponent.vue';
 
 export default {
     name: 'CategoryPage',
     props: ['datasend', 'PUBLIC', 'pageId', 'changePage'],
     components:{
       AvatarComponent,
+      ServComponent,
+    },
+    data() {
+        return {
+            servs: [],
+            page: 1,
+            populars:[],
+        };
+    },
+    mounted() {
+            this.getServ();
+    },
+    methods: {
+        getServ(page = 1) {
+            this.datasend('servs?page=' + page)
+            .then((result) => {
+                this.servs = result.servs;
+                this.page = result.current_page;
+                this.populars = result.populars;
+                console.log(result);
+            });
+        },
     },
 };
 </script>

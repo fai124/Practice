@@ -94,7 +94,7 @@ export default {
                 }
                 console.log(result);
                 if (result.id) {
-                    this.changePage('ServPage', result.id);
+                    this.changePage('CategoryPage', result.id);
                 }
             });
             //.catch((error) => console.error(error));
