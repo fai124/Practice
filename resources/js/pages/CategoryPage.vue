@@ -26,7 +26,7 @@
 
         <!-- Пагинация -->
         <div class="pagination">
-            <button class="pagination-button">
+            <button class="pagination-button" @click.prevent="getServ(page-1)" :class="{disabled: page === 1}">
                 <img
                     class="arrow-icon"
                     src="/icons/arrow-left0.svg"
@@ -34,7 +34,7 @@
                 />
                 <span class="pagination-text">Назад</span>
             </button>
-            <button class="pagination-button">
+            <button class="pagination-button" @click.prevent="getServ(servs.current_page+1)" :class="{disabled: servs.current_page===servs.last_page}">
                 <span class="pagination-text">Вперед</span>
                 <img
                     class="arrow-icon"

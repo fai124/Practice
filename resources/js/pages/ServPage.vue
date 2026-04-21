@@ -31,7 +31,6 @@
             </div>
         </div>
 
-
         <!-- Блок с отзывами и формой -->
         <div class="reviews-section">
             <!-- Форма отправки отзыва -->
@@ -96,37 +95,44 @@
                 <div class="comment-bubble">
                     {{ value.comment }}
                 </div>
-                 <!-- Блок лайков и ответа -->
+                <!-- Блок лайков и ответа -->
 
-            <div class="comment-actions">
-                <button class="like-button" @click.prevent="likeClick">
-                    <img
-                        class="heart-icon"
-                        src="/icons/heart0.svg"
-                        alt="like"
-                    />
-                </button>
-                <span class="likes-count">{{ serv.likes_count }}</span>
+                <div class="comment-actions">
+                    <button
+                        class="like-button"
+                        @click.prevent="likeClick(value.id)"
+                    >
+                        <img
+                            class="heart-icon"
+                            src="/icons/heart0.svg"
+                            alt="like"
+                        />
+                    </button>
+                    <span class="likes-count">{{ value.likes_count }}</span>
 
-                <div class="comment-input-field" v-if="isAdmin">
-                    <img class="input-icon" src="/icons/user0.svg" alt="user" />
-                    <input
-                        type="text"
-                        class="comment-input"
-                        placeholder="Ответ"
-                        name=""
-                    />
-                    <img
-                        class="close-icon"
-                        src="/icons/close0.svg"
-                        alt="clear"
-                    />
+                    <div class="comment-input-field" v-if="isAdmin">
+                        <img
+                            class="input-icon"
+                            src="/icons/user0.svg"
+                            alt="user"
+                        />
+                        <input
+                            type="text"
+                            class="comment-input"
+                            placeholder="Ответ"
+                            name=""
+                        />
+                        <img
+                            class="close-icon"
+                            src="/icons/close0.svg"
+                            alt="clear"
+                        />
+                    </div>
+
+                    <button class="reply-button" v-if="isAdmin">
+                        <span class="reply-button-text">Ответить</span>
+                    </button>
                 </div>
-
-                <button class="reply-button" v-if="isAdmin">
-                    <span class="reply-button-text">Ответить</span>
-                </button>
-            </div>
             </div>
         </div>
     </div>
@@ -155,15 +161,17 @@ export default {
         this.getServ();
     },
     methods: {
-        likeClick() {
+        likeClick(commentId) {
             if (!this.isAuth) {
                 alert('Авторизуйтесь');
+                return;
             }
-            this.datasend('like/' + this.pageId).then((result) => {
-                console.log(result.like_count);
-                this.serv.likes_count = result.like_count;
-                this.serv.isLike = result.isLike;
-                this.isLike = !this.isLike;
+            this.datasend('like/' + commentId, 'POST').then((result) => {
+                const comment = this.comments.find((c) => c.id === commentId);
+                if (comment) {
+                    comment.likes_count = result.like_count;
+                    comment.isLike = result.isLike;
+                }
             });
         },
         getServ() {
