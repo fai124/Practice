@@ -29,7 +29,7 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommentRequest $request, Serv $serv,)
+    public function store(StoreCommentRequest $request, Serv $serv)
     {
         $comment = New Comment();
         $comment->user_id = Auth::id();
@@ -37,16 +37,11 @@ class CommentController extends Controller
         $comment->comment = $request->comment;
         $comment->parent_id = $request->parent_id ?? null;
         $comment->save();
+        $comment->load('user');
         return response()->json(['message' => 'ok', 'comment' => $comment]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

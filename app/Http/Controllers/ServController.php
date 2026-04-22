@@ -42,9 +42,12 @@ class ServController extends Controller
     {
         $serv = Serv::with('user')->findOrFail($serv);
 
-        $comments = Comment::with('user', 'replies.user')
-            ->where('serv_id', $serv->id)
-            ->get();
+        $comments = Comment::with(['user', 'replies' => function($q) {
+         $q->with('user');
+       }])
+         ->where('serv_id', $serv->id)
+         ->whereNull('parent_id')
+         ->get();
         
 
         foreach ($comments as $comment) {
