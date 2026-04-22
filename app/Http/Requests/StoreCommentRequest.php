@@ -19,6 +19,7 @@ class StoreCommentRequest extends FormRequest
     {
         return [
             "comment"=>"required",
+            "parent_id" => "nullable|exists:comments.id"
         ];
     }
 }

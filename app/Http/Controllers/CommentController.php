@@ -29,14 +29,15 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommentRequest $request, Serv $serv)
+    public function store(StoreCommentRequest $request, Serv $serv,)
     {
         $comment = New Comment();
         $comment->user_id = Auth::id();
         $comment->serv_id = $serv->id;
         $comment->comment = $request->comment;
+        $comment->parent_id = $request->parent_id ?? null;
         $comment->save();
-        return response()->json(['message' => 'ok',]);
+        return response()->json(['message' => 'ok', 'comment' => $comment]);
     }
 
     /**

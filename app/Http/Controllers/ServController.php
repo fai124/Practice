@@ -41,13 +41,12 @@ class ServController extends Controller
     public function show($serv)
     {
         $serv = Serv::with('user')->findOrFail($serv);
-        
-        // Получаем комментарии без withCount
-        $comments = Comment::with('user')
+
+        $comments = Comment::with('user', 'replies.user')
             ->where('serv_id', $serv->id)
             ->get();
         
-        // Для каждого комментария считаем количество лайков
+
         foreach ($comments as $comment) {
             $comment->likes_count = Like::where('comment_id', $comment->id)->count();
             

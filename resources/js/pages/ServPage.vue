@@ -1,31 +1,18 @@
 <template>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
-        rel="stylesheet"
-    />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@400;500&display=swap"
-        rel="stylesheet"
-    />
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@400;500&display=swap" rel="stylesheet" />
     <div class="frame-4" v-if="serv">
         <!-- Шапка с аватаром пользователя -->
-        <AvatarComponent
-            :datasend="datasend"
-            :changePage="changePage"
-            :pageId="pageId"
-            :PUBLIC="PUBLIC"
-        />
+        <AvatarComponent :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" />
 
         <!-- Основной блок с услугой -->
         <div class="service-block">
             <h1 class="service-title">{{ serv.name }}</h1>
             <div class="service-content">
                 <div class="service-image-placeholder"></div>
-                <img
-                    class="service-main-img"
-                    :src="PUBLIC + serv.photo"
-                    alt="service image"
-                />
+                <img class="service-main-img" :src="PUBLIC + serv.photo" alt="service image" />
                 <div class="service-description-bg"></div>
                 <p class="service-description-text">{{ serv.content }}</p>
             </div>
@@ -41,32 +28,15 @@
                 </div>
                 <div class="input-with-button">
                     <div class="comment-input-field">
-                        <img
-                            class="input-icon"
-                            src="/icons/user0.svg"
-                            alt="user"
-                        />
-                        <input
-                            type="text"
-                            class="comment-input"
-                            placeholder="Комментарий"
-                            name="comment"
-                            v-model="comment"
-                        />
-                        <img
-                            class="close-icon"
-                            src="/icons/close0.svg"
-                            alt="clear"
-                        />
+                        <img class="input-icon" src="/icons/user0.svg" alt="user" />
+                        <input type="text" class="comment-input" placeholder="Комментарий" name="comment"
+                            v-model="comment" />
+                        <img class="close-icon" src="/icons/close0.svg" alt="clear" />
                         <div class="alert alert-danger" v-if="errors.comment">
                             {{ errors.comment.join('. ') }}
                         </div>
                     </div>
-                    <button
-                        class="submit-button"
-                        type="button"
-                        @click="addComment"
-                    >
+                    <button class="submit-button" type="button" @click="addComment">
                         <span class="submit-button-text">отправить</span>
                     </button>
                 </div>
@@ -75,14 +45,9 @@
             <!-- Комментарий пользователя -->
             <div class="user-comment" v-for="value in comments" :key="value.id">
                 <div class="comment-avatar-group">
-                    <img
-                        class="comment-avatar"
-                        :src="
-                            PUBLIC +
-                            (value.user?.avatar || 'avatars/default.png')
-                        "
-                        alt="avatar"
-                    />
+                    <img class="comment-avatar" :src="PUBLIC +
+                        (value.user?.avatar || 'avatars/default.png')
+                        " alt="avatar" />
                     <div class="comment-user-info">
                         <div class="comment-user-name">
                             {{ value.user?.fullname || 'Пользователь' }}
@@ -98,40 +63,39 @@
                 <!-- Блок лайков и ответа -->
 
                 <div class="comment-actions">
-                    <button
-                        class="like-button"
-                        @click.prevent="likeClick(value.id)"
-                    >
-                        <img
-                            class="heart-icon"
-                            src="/icons/heart0.svg"
-                            alt="like"
-                        />
+                    <button class="like-button" @click.prevent="likeClick(value.id)">
+                        <img class="heart-icon" src="/icons/heart0.svg" alt="like" />
                     </button>
                     <span class="likes-count">{{ value.likes_count }}</span>
 
                     <div class="comment-input-field" v-if="isAdmin">
-                        <img
-                            class="input-icon"
-                            src="/icons/user0.svg"
-                            alt="user"
-                        />
-                        <input
-                            type="text"
-                            class="comment-input"
-                            placeholder="Ответ"
-                            name=""
-                        />
-                        <img
-                            class="close-icon"
-                            src="/icons/close0.svg"
-                            alt="clear"
-                        />
+                        <img class="input-icon" src="/icons/user0.svg" alt="user" />
+                        <input type="text" class="comment-input" placeholder="Ответ" name="" v-model="replyText" />
+                        <img class="close-icon" src="/icons/close0.svg" alt="clear" />
                     </div>
 
                     <button class="reply-button" v-if="isAdmin">
-                        <span class="reply-button-text">Ответить</span>
+                        <span class="reply-button-text" @click="addReply(value.id)">Ответить</span>
                     </button>
+                </div>
+                <br />
+                <div class="admin-comment" v-for="reply in comment.replies" :key="reply.id">
+                    <div class="comment-avatar-group">
+                        <img class="comment-avatar" :src="PUBLIC +
+                            (reply.user?.avatar || 'avatars/default.png')
+                            " alt="avatar" />
+                        <div class="comment-user-info">
+                            <div class="comment-user-name">
+                                {{ reply.user?.fullname || 'Пользователь' }}
+                            </div>
+                            <div class="comment-user-email">
+                                {{ reply.user?.email || '' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-bubble">
+                        {{ reply.comment }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -155,6 +119,8 @@ export default {
             isAuth: localStorage.getItem('token') ? true : false,
             errors: {},
             comment: '',
+            replyTo: null,
+            replyText: '',
         };
     },
     mounted() {
@@ -199,12 +165,28 @@ export default {
                 },
             );
         },
-        deletePost() {
-            this.datasend('destroy/' + this.pageId).then((result) => {
-                console.log(result);
-                this.changePage('CategoryPage');
-            });
+        startReply(commentId) {
+            this.replyTo = commentId;
+            this.replyText = '';
         },
+        addReply(parentId) {
+            if (!this.replyText.trim()) return;
+
+            let formdata = new FormData();
+            formdata.append('comment', this.replyText);
+            formdata.append('parent_id', parentId);
+
+            this.datasend('comment/' + this.pageId, 'POST', formdata).then((result) => {
+                    this.replyText = '';
+                    this.getServ();
+                });
+                },
+    deletePost() {
+        this.datasend('destroy/' + this.pageId).then((result) => {
+            console.log(result);
+            this.changePage('CategoryPage');
+        });
     },
+},
 };
 </script>

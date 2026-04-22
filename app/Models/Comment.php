@@ -10,7 +10,8 @@ use App\Models\Like;
 
 class Comment extends Model
 {
-    public function user(): BelongsTo
+    protected $fillable = ['user_id', 'serv_id', 'comment', 'parent_id'];
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
@@ -21,5 +22,13 @@ class Comment extends Model
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
+    }
+    public function parent()
+    {
+        return $this->belongsTo(Comment::class, 'parent_id');
+    }
+    public function replies()
+    {
+        return $this->hasMany(Comment::class, 'parent_id')->with('user');
     }
 }

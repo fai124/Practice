@@ -298,6 +298,12 @@
   width: 100%;
   margin-bottom: 30px;
 }
+.admin-comment {
+  position: relative;
+  width: 100%;
+  left: 20%;
+  margin-bottom: 30px;
+}
 
 .comment-avatar-group {
   display: flex;
