@@ -9,15 +9,15 @@
     />
 
     <div class="frame-4" v-if="serv">
-        <!-- Шапка с аватаром пользователя -->
-        <AvatarComponent
-            :datasend="datasend"
-            :changePage="changePage"
-            :pageId="pageId"
-            :PUBLIC="PUBLIC"
-        />
+        <button class="back-button">
+            <a href="" @click.prevent="changePage('CategoryPage')"
+                ><img
+                    class="back-icon"
+                    src="/icons/corner-up-left0.svg"
+                    alt="back"
+            /></a>
+        </button>
 
-        <!-- Основной блок с услугой -->
         <div class="service-block">
             <h1 class="service-title">{{ serv.name }}</h1>
             <div class="service-content">
@@ -32,9 +32,7 @@
             </div>
         </div>
 
-        <!-- Блок с отзывами и формой -->
         <div class="reviews-section">
-            <!-- Форма отправки основного отзыва -->
             <div class="review-form-container">
                 <div class="form-label">
                     <span class="form-label-text">Оставьте отзыв</span>
@@ -74,9 +72,7 @@
                 </div>
             </div>
 
-            <!-- Список комментариев -->
             <div class="user-comment" v-for="value in comments" :key="value.id">
-                <!-- Аватар и информация автора -->
                 <div class="comment-avatar-group">
                     <img
                         class="comment-avatar"
@@ -96,12 +92,10 @@
                     </div>
                 </div>
 
-                <!-- Текст комментария -->
                 <div class="comment-bubble">
                     {{ value.comment }}
                 </div>
 
-                <!-- Лайки -->
                 <div class="comment-actions">
                     <button
                         class="like-button"
@@ -116,11 +110,17 @@
                     <span class="likes-count">{{ value.likes_count }}</span>
                 </div>
 
-                <!-- Всегда видимое поле для ответа (только для админа) -->
-                <div
-                    class="comment-input-field admin-reply-input mt-2"
-                    v-if="isAdmin"
-                >
+                <div class="comment-actions">
+                    <button
+                        class="like-button"
+                        @click.prevent="deleteComment(value.id)"
+                    >
+                    <span class="likes-count">X</span>
+                    </button>
+                </div>
+
+                <br />
+                <div class="comment-input-field" v-if="isAdmin">
                     <img class="input-icon" src="/icons/user0.svg" alt="user" />
                     <input
                         type="text"
@@ -136,8 +136,7 @@
                         @click="replyTexts[value.id] = ''"
                     />
                 </div>
-
-                <!-- Кнопка "Отправить ответ" (всегда видима, если админ) -->
+                <br />
                 <button
                     v-if="isAdmin && replyTexts[value.id]?.trim()"
                     class="reply-button ml-2"
@@ -146,9 +145,8 @@
                     <span class="reply-button-text">Отправить ответ</span>
                 </button>
 
-                <!-- Ответы (вложенные комментарии) -->
                 <div
-                    class="admin-comment mt-3"
+                    class="admin-comment"
                     v-for="reply in value.replies"
                     :key="reply.id"
                 >
@@ -197,8 +195,7 @@ export default {
             isAuth: localStorage.getItem('token') ? true : false,
             errors: {},
             comment: '',
-            // Теперь replyText — объект: { commentId: "текст" }
-            replyTexts: {}, // Например: { 5: "Спасибо!", 7: "Принято" }
+            replyTexts: {},
         };
     },
     mounted() {
@@ -227,8 +224,8 @@ export default {
                     this.isAdmin = result.isAdmin || false;
                     this.isLike = result.isLike || false;
 
-                    // Инициализируем replyTexts для каждого комментария
-                    this.replyTexts = {}; // сбросим
+
+                    this.replyTexts = {};
                     this.comments.forEach((comment) => {
                         this.replyTexts[comment.id] = '';
                     });
@@ -279,8 +276,8 @@ export default {
                     if (result.errors) {
                         this.errors = result.errors;
                     } else {
-                        this.replyTexts[parentId] = ''; // Очищаем поле
-                        this.getServ(); // Перезагружаем комментарии
+                        this.replyTexts[parentId] = ''; 
+                        this.getServ(); 
                     }
                 })
                 .catch((err) => {
@@ -288,41 +285,11 @@ export default {
                 });
         },
 
-        deletePost() {
-            this.datasend('destroy/' + this.pageId).then((result) => {
+        deleteComment(commentId) {
+            this.datasend('destroy/' + commentId).then((result) => {
                 console.log(result);
-                this.changePage('CategoryPage');
             });
         },
     },
 };
 </script>
-
-<style scoped>
-.mt-2 {
-    margin-top: 8px;
-}
-
-.ml-2 {
-    margin-left: 8px;
-}
-
-.admin-reply-input {
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
-.reply-button {
-    font-size: 14px;
-    padding: 6px 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.reply-button:hover {
-    background-color: #0056b3;
-}
-</style>

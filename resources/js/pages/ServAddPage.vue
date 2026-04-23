@@ -11,7 +11,7 @@
         <div class="service-card">
             <!-- ИЗМЕНЕНО 1: AvatarComponent обёрнут в card-header -->
             <div class="card-header">
-                <button class="back-button" aria-label="Назад">
+                <button class="back-button" aria-label="Назад" @click.prevent="changePage('CategoryPage')">
                     <img src="/icons/corner-up-left0.svg" alt="" />
                 </button>
             </div>

@@ -10,7 +10,7 @@
     <div class="frame-3">
         <!-- Аватар и информация пользователя -->
          <AvatarComponent :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
-         <a href="" @click.prevent="changePage('ServAddPage')">Создать</a>
+         <button class="create" @click.prevent="changePage('ServAddPage')"><span class="card-button-text">Создать</span></button>
 
         <!-- Заголовок "Категории" -->
         <h1 class="categories-title">Категории</h1>

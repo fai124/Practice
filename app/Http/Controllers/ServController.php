@@ -64,7 +64,7 @@ class ServController extends Controller
         
         $isAdmin = false;
         if(Auth::check()){
-            if(Auth::user()->id == $serv->user_id || Auth::user()->role == 'admin'){
+            if(Auth::user()->role == 'admin'){
                 $isAdmin = true;
             }
         }
@@ -76,9 +76,9 @@ class ServController extends Controller
         ]);
     }
 
-    public function destroy(Serv $serv)
+    public function destroy($commentId)
     {
-        $serv->delete();
+        $commentId->delete();
         return response()->json(['message' => "ok"]);
     }
 }

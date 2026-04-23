@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/servadd', [ServController::class, 'store']);
     Route::post('/comment/{serv}', [CommentController::class, 'store']);
     Route::post('/like/{comment}', [LikeController::class, 'store']);
-    Route::get('/destroy/{post}', [ServController::class, 'destroy']);
+    Route::get('/destroy/{comment}', [ServController::class, 'destroy']);
 });
