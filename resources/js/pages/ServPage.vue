@@ -110,7 +110,7 @@
                     <span class="likes-count">{{ value.likes_count }}</span>
                 </div>
 
-                <div class="comment-actions">
+                <div class="comment-actions_X" v-if="isAdmin">
                     <button
                         class="like-button"
                         @click.prevent="deleteComment(value.id)"
@@ -286,8 +286,9 @@ export default {
         },
 
         deleteComment(commentId) {
-            this.datasend('destroy/' + commentId).then((result) => {
+            this.datasend('destroy/' + commentId, 'DELETE').then((result) => {
                 console.log(result);
+                this.getServ
             });
         },
     },

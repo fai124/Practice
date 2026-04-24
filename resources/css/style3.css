@@ -392,6 +392,16 @@
   margin-left: 550px;
 }
 
+.comment-actions_X {
+  display: flex;
+  flex-direction: row;
+  gap: 22px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: -40px;
+  margin-left: 650px;
+}
+
 .like-button {
   background: #f3f4f6;
   border-radius: 12px;

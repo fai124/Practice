@@ -78,7 +78,8 @@ class ServController extends Controller
 
     public function destroy($commentId)
     {
-        $commentId->delete();
+        $comment = Comment::findOrFail($commentId);
+        $comment->delete();
         return response()->json(['message' => "ok"]);
     }
 }
