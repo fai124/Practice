@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/servAuth/{post}', [ServController::class, 'show']);
     Route::get('/logout', [UserController::class, 'logout']);
     Route::post('/servadd', [ServController::class, 'store']);
+    Route::post('/useredit/{user}', [UserController::class, 'update']);
     Route::post('/comment/{serv}', [CommentController::class, 'store']);
     Route::post('/like/{comment}', [LikeController::class, 'store']);
     Route::delete('/destroy/{comment}', [ServController::class, 'destroy']);

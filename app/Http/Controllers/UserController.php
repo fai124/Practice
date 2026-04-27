@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRegisterRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserAuthRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,6 +14,15 @@ use Illuminate\Validation\Rules\Email;
 
 class UserController extends Controller
 {
+    public function update (UserUpdateRequest $request, User $user) {
+        $user->fullname = $request->fullname;
+        $user->email = $request->email;
+        $user->number = $request->number;
+        $path = Storage::disk("public")->putFile("avatars", $request->file("avatar"));
+        $user->avatar = $path;
+        $user->save();
+        return response()->json(["token" => $user->createToken("api")->plainTextToken]);
+    }
     public function register(UserRegisterRequest $request)
     {
         $user = new User();

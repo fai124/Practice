@@ -98,7 +98,7 @@
 
                 <div class="comment-actions">
                     <button
-                        class="like-button"
+                        class="like_button"
                         @click.prevent="likeClick(value.id)"
                     >
                         <img
@@ -107,12 +107,12 @@
                             alt="like"
                         />
                     </button>
-                    <span class="likes-count">{{ value.likes_count }}</span>
+                    <span class="likes-count" :class="{like_button: isLike}">{{ value.likes_count }}</span>
                 </div>
 
                 <div class="comment-actions_X" v-if="isAdmin">
                     <button
-                        class="like-button"
+                        class="like_button"
                         @click.prevent="deleteComment(value.id)"
                     >
                     <span class="likes-count">X</span>
