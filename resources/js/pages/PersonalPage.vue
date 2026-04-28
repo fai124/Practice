@@ -32,6 +32,7 @@
                 </div>
             </div>
         </div>
+        <input type="file" name="file" id="avatar" /><br /><br />
         <button class="exit-button" @click="logout()">
             <span class="confirm-button-text">Выйти</span>
         </button>
@@ -164,6 +165,10 @@ export default {
     data() {
         return {
             userInfo: {},
+            fullname: '',
+            email: '',
+            number: '',
+            errors: {},
         };
     },
     mounted() {
@@ -175,8 +180,12 @@ export default {
             if (this.fullname) formdata.append('fullname', this.fullname);
             if (this.email) formdata.append('email', this.email);
             if (this.number) formdata.append('number', this.number);
+            let avatar = document.querySelector("#avatar");
+            if(avatar.files[0]) {
+                formdata.append('avatar', avatar.files[0]);
+            }
 
-            this.datasend('register', 'POST', formdata).then((result) => {
+            this.datasend('useredit', 'POST', formdata).then((result) => {
                 console.log(result);
                 if (result.errors) {
                     this.errors = result.errors;
@@ -191,6 +200,9 @@ export default {
             this.datasend('user')
                 .then((response) => {
                     this.userInfo = response;
+                    this.fullname = response.fullname || '';
+                    this.email = response.email || '';
+                    this.number = response.number || '';
                 })
                 .catch((error) => {
                     console.error(error);

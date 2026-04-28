@@ -15,11 +15,15 @@ use Illuminate\Validation\Rules\Email;
 class UserController extends Controller
 {
     public function update (UserUpdateRequest $request, User $user) {
+        $user = Auth::user();
+
         $user->fullname = $request->fullname;
         $user->email = $request->email;
         $user->number = $request->number;
+        if($request->has("avatar")){
         $path = Storage::disk("public")->putFile("avatars", $request->file("avatar"));
         $user->avatar = $path;
+        }
         $user->save();
         return response()->json(["token" => $user->createToken("api")->plainTextToken]);
     }

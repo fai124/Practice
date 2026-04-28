@@ -22,9 +22,9 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "fullname"=>"required|min:3",
-            "number"=>"required|min:3",
-            "email"=>"required|min:3",
+            "fullname"=>"sometimes|required|min:3",
+            "number"=>"sometimes|required|min:3",
+            "email"=>"sometimes|required|min:3",
             "avatar" => "nullable|image|mimes:jpg,jpeg,png|max:2048",
         ];
     }

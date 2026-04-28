@@ -7,7 +7,7 @@
         <AuthPage v-if="page == 'AuthPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :changeToken="changeToken"/>
         <RegPage v-if="page == 'RegPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :changeToken="changeToken" :logout="logout"/>
         <CategoryPage v-if="page == 'CategoryPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
-        <PersonalPage v-if="page == 'PersonalPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :logout="logout"/>
+        <PersonalPage v-if="page == 'PersonalPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :logout="logout" :changeToken="changeToken"/>
         <ServPage v-if="page == 'ServPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <ServAddPage v-if="page == 'ServAddPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <HomePage v-if="page == 'HomePage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
