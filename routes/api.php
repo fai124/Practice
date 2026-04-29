@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserServiceController;
 use App\Http\Controllers\ServController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
@@ -17,6 +18,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    Route::get('/my-services', [UserServiceController::class, 'getUserServices']);
+    Route::get('/available-service', [UserServiceController::class, 'getAvailableServices']);
+    Route::post('/add-service', [UserServiceController::class, 'addServiceToUser']);
+
     Route::get('/servAuth/{post}', [ServController::class, 'show']);
     Route::get('/logout', [UserController::class, 'logout']);
     Route::post('/servadd', [ServController::class, 'store']);

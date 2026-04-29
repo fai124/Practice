@@ -54,4 +54,10 @@ class User extends Authenticatable
             'two_factor_confirmed_at' => 'datetime',
         ];
     }
+    public function services()
+    {
+        return $this->belongsToMany(Serv::class, 'user_services')
+            ->withPivot('service_date', 'id')
+            ->withTimestamps();
+    }
 }

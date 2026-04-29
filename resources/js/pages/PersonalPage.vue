@@ -105,45 +105,80 @@
                 </button>
             </div>
 
-            <!-- Заголовок "Полученные услуги" -->
-            <h3 class="services-title">Полученные услуги:</h3>
+            <!-- Блок добавления услуги -->
+            <div class="add-service-section">
+                <h3 class="services-title">Добавить полученную услугу:</h3>
 
-            <!-- Выпадающий список выбора услуги -->
-            <div class="custom-select">
-                <div class="select-trigger">
-                    <div class="select-content">
-                        <span class="select-placeholder">Выберете услугу</span>
+                <div class="input-group">
+                    <div class="form-label">
+                        <span class="form-label-text">Выберите услугу</span>
                     </div>
-                    <img
-                        class="chevron-icon"
-                        src="/icons/chevron-down0.svg"
-                        alt="dropdown"
-                    />
+                    <div class="form-input-field">
+                        <select v-model="selectedServiceId" class="form-input">
+                            <option :value="null" disabled>
+                                Выберите услугу
+                            </option>
+                            <option
+                                v-for="service in availableServices"
+                                :key="service.id"
+                                :value="service.id"
+                            >
+                                {{ service.name }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
+
+                <div class="input-group">
+                    <div class="form-label">
+                        <span class="form-label-text">Дата получения</span>
+                    </div>
+                    <div class="form-input-field">
+                        <input
+                            type="date"
+                            class="form-input"
+                            v-model="serviceDate"
+                        />
+                    </div>
+                </div>
+
+                <button class="confirm-button" @click="addServiceToUser">
+                    <span class="confirm-button-text">Добавить услугу</span>
+                </button>
             </div>
 
-            <!-- Кнопка выбора даты -->
-            <button class="date-button">
-                <span class="date-button-text">Выберете дату услуги</span>
-            </button>
+            <!-- Список услуг пользователя -->
+            <h3 class="services-title" style="margin-top: 30px">
+                Мои полученные услуги:
+            </h3>
 
-            <!-- Карточка услуги -->
-            <div class="service-card-wrapper">
+            <div v-if="myServices.length === 0" class="no-services">
+                У вас пока нет добавленных услуг
+            </div>
+
+            <div
+                v-for="service in myServices"
+                :key="service.id"
+                class="service-card-wrapper"
+            >
                 <div class="service-card-horizontal">
                     <div class="card-image">
                         <img
                             class="service-img"
-                            src="/icons/rectangle-1740.png"
+                            :src="PUBLIC + service.photo"
                             alt="service"
                         />
                     </div>
                     <div class="card-content">
-                        <h4 class="service-card-title">Услуга</h4>
+                        <h4 class="service-card-title">{{ service.name }}</h4>
                         <div class="service-details">
                             <p class="service-description">
-                                Профессиональный ремонт и обслуживание
+                                {{ service.content }}
                             </p>
-                            <span class="service-time">14:00 - 15:00</span>
+                            <p class="service-date">
+                                <strong>Дата получения:</strong>
+                                {{ formatDate(service.pivot.service_date) }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -169,6 +204,10 @@ export default {
             email: '',
             number: '',
             errors: {},
+            availableServices: [],
+            selectedServiceId: null,
+            serviceDate: '',
+            myServices: []
         };
     },
     mounted() {
@@ -180,8 +219,8 @@ export default {
             if (this.fullname) formdata.append('fullname', this.fullname);
             if (this.email) formdata.append('email', this.email);
             if (this.number) formdata.append('number', this.number);
-            let avatar = document.querySelector("#avatar");
-            if(avatar.files[0]) {
+            let avatar = document.querySelector('#avatar');
+            if (avatar.files[0]) {
                 formdata.append('avatar', avatar.files[0]);
             }
 
@@ -208,6 +247,60 @@ export default {
                     console.error(error);
                 });
         },
+        loadAvailableServices() {
+            this.datasend('available-services')
+                .then((response) => {
+                    this.availableServices = response;
+                })
+                .catch(error => {
+                    console.error('Ошибка загрузки услуг:', error);
+                });
+        },
+        
+        loadUserServices() {
+            this.datasend('my-services')
+                .then((response) => {
+                    this.myServices = response;
+                })
+                .catch(error => {
+                    console.error('Ошибка загрузки моих услуг:', error);
+                });
+        },
+        
+        addServiceToUser() {
+            if (!this.selectedServiceId) {
+                alert('Выберите услугу');
+                return;
+            }
+            if (!this.serviceDate) {
+                alert('Выберите дату получения услуги');
+                return;
+            }
+            
+            let formdata = new FormData();
+            formdata.append('serv_id', this.selectedServiceId);
+            formdata.append('service_date', this.serviceDate);
+            
+            this.datasend('add-service', 'POST', formdata)
+                .then(() => {
+                    alert('Услуга добавлена!');
+                    this.selectedServiceId = null;
+                    this.serviceDate = '';
+                    this.loadUserServices();
+                })
+                .catch(error => {
+                    if (error.error) {
+                        alert(error.error);
+                    } else {
+                        alert('Ошибка при добавлении услуги');
+                    }
+                });
+        },
+        
+        formatDate(date) {
+            if (!date) return '';
+            return new Date(date).toLocaleDateString('ru-RU');
+        }
     },
 };
 </script>
