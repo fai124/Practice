@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/my-services', [UserServiceController::class, 'getUserServices']);
-    Route::get('/available-service', [UserServiceController::class, 'getAvailableServices']);
+    Route::get('/available-services', [UserServiceController::class, 'getAvailableServices']);
     Route::post('/add-service', [UserServiceController::class, 'addServiceToUser']);
 
     Route::get('/servAuth/{post}', [ServController::class, 'show']);

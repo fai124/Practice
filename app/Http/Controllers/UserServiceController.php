@@ -11,8 +11,17 @@ class UserServiceController extends Controller
     public function getUserServices()
     {
         $user = Auth::user();
-        $services = $user->services()->with('user')->get();
-        return response()->json($services);
+
+    if (!$user) {
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    $services = $user->services()
+        ->with('user')           // автор услуги
+        ->withPivot('service_date') // обязательно!
+        ->get();
+
+    return response()->json($services);
     }
     
     public function getAvailableServices()

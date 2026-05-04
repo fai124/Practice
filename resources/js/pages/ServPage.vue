@@ -288,7 +288,7 @@ export default {
         deleteComment(commentId) {
             this.datasend('destroy/' + commentId, 'DELETE').then((result) => {
                 console.log(result);
-                this.getServ
+                this.getServ();
             });
         },
     },

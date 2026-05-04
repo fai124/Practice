@@ -207,11 +207,13 @@ export default {
             availableServices: [],
             selectedServiceId: null,
             serviceDate: '',
-            myServices: []
+            myServices: [],
         };
     },
     mounted() {
         this.getUserInfo();
+        this.loadAvailableServices();
+        this.loadUserServices();
     },
     methods: {
         useredit() {
@@ -252,21 +254,21 @@ export default {
                 .then((response) => {
                     this.availableServices = response;
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error('Ошибка загрузки услуг:', error);
                 });
         },
-        
+
         loadUserServices() {
             this.datasend('my-services')
                 .then((response) => {
                     this.myServices = response;
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error('Ошибка загрузки моих услуг:', error);
                 });
         },
-        
+
         addServiceToUser() {
             if (!this.selectedServiceId) {
                 alert('Выберите услугу');
@@ -276,11 +278,11 @@ export default {
                 alert('Выберите дату получения услуги');
                 return;
             }
-            
+
             let formdata = new FormData();
             formdata.append('serv_id', this.selectedServiceId);
             formdata.append('service_date', this.serviceDate);
-            
+
             this.datasend('add-service', 'POST', formdata)
                 .then(() => {
                     alert('Услуга добавлена!');
@@ -288,7 +290,7 @@ export default {
                     this.serviceDate = '';
                     this.loadUserServices();
                 })
-                .catch(error => {
+                .catch((error) => {
                     if (error.error) {
                         alert(error.error);
                     } else {
@@ -296,11 +298,15 @@ export default {
                     }
                 });
         },
-        
+
         formatDate(date) {
-            if (!date) return '';
-            return new Date(date).toLocaleDateString('ru-RU');
-        }
+            if (!date) return 'Не указана';
+            try {
+                return new Date(date).toLocaleDateString('ru-RU');
+            } catch (e) {
+                return 'Ошибка даты';
+            }
+        },
     },
 };
 </script>
