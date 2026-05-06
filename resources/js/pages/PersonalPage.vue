@@ -24,6 +24,9 @@
                 class="profile-image"
                 :src="PUBLIC + userInfo.avatar"
                 alt="profile avatar"
+                @click="trigger"
+                style="cursor: pointer;"
+                
             />
             <div class="profile-info">
                 <h2 class="profile-name">{{ userInfo.fullname }}</h2>
@@ -32,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <input type="file" name="file" id="avatar" /><br /><br />
+        <input type="file" name="file" id="avatar" style="display: none;" @change="useredit"/>
         <button class="exit-button" @click="logout()">
             <span class="confirm-button-text">Выйти</span>
         </button>
@@ -141,7 +144,7 @@
                         />
                     </div>
                 </div>
-
+                <br>
                 <button class="confirm-button" @click="addServiceToUser">
                     <span class="confirm-button-text">Добавить услугу</span>
                 </button>
@@ -187,6 +190,8 @@
     </div>
 </template>
 <script>
+import { triggerRef } from 'vue';
+
 export default {
     name: 'PersonalPage',
     props: [
@@ -216,6 +221,9 @@ export default {
         this.loadUserServices();
     },
     methods: {
+        trigger(){
+            document.querySelector('#avatar').click();
+        },
         useredit() {
             let formdata = new FormData();
             if (this.fullname) formdata.append('fullname', this.fullname);
@@ -254,9 +262,6 @@ export default {
                 .then((response) => {
                     this.availableServices = response;
                 })
-                .catch((error) => {
-                    console.error('Ошибка загрузки услуг:', error);
-                });
         },
 
         loadUserServices() {
@@ -264,39 +269,19 @@ export default {
                 .then((response) => {
                     this.myServices = response;
                 })
-                .catch((error) => {
-                    console.error('Ошибка загрузки моих услуг:', error);
-                });
         },
 
         addServiceToUser() {
-            if (!this.selectedServiceId) {
-                alert('Выберите услугу');
-                return;
-            }
-            if (!this.serviceDate) {
-                alert('Выберите дату получения услуги');
-                return;
-            }
-
             let formdata = new FormData();
             formdata.append('serv_id', this.selectedServiceId);
             formdata.append('service_date', this.serviceDate);
 
             this.datasend('add-service', 'POST', formdata)
                 .then(() => {
-                    alert('Услуга добавлена!');
                     this.selectedServiceId = null;
                     this.serviceDate = '';
                     this.loadUserServices();
                 })
-                .catch((error) => {
-                    if (error.error) {
-                        alert(error.error);
-                    } else {
-                        alert('Ошибка при добавлении услуги');
-                    }
-                });
         },
 
         formatDate(date) {

@@ -46,17 +46,21 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Comment $comment)
+    public function edit(StoreCommentRequest $request,Comment $comment, Serv $serv)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(Request $request,Comment $comment)
     {
-        //
+        if(Auth::id() !== $comment->user_id && Auth::user()->role !== 'admin') {
+            return response()->json(['error' => 'нет прав'], 403);
+        }
+        $comment->comment = $request->comment;
+        $comment->save();
+        return response()->json(['message' => 'ok', 'comment' => $comment]);
     }
 
     /**

@@ -39,10 +39,10 @@ class UserServiceController extends Controller
         
         $user = Auth::user();
         
-        $exists = $user->services()->where('serv_id', $request->serv_id)->exists();
-        if ($exists) {
-            return response()->json(['error' => 'Услуга уже добавлена'], 422);
-        }
+        //$exists = $user->services()->where('serv_id', $request->serv_id)->exists();
+        //if ($exists) {
+            //return response()->json(['error' => 'Услуга уже добавлена'], 422);
+        //}
         
         $user->services()->attach($request->serv_id, [
             'service_date' => $request->service_date
