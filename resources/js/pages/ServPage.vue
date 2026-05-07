@@ -95,6 +95,19 @@
                 <div class="comment-bubble">
                     {{ value.comment }}
                 </div>
+                <button v-if="userInfo && value.user_id === userInfo.id"
+                @click="editComment(value.id, value.comment)"
+                class = "edit-btn">
+                изменить
+                </button>
+
+                <div v-if="showEditModal" class="modal">
+                    <div class="modal-content">
+                        <textarea v-model="editText"></textarea>
+                        <button @click="saveEdit">Сохранить</button>
+                        <button @click="showEditModal = false">Отмена</button>
+                    </div>
+                </div>
 
                 <div class="comment-actions">
                     <button
@@ -188,6 +201,7 @@ export default {
     },
     data() {
         return {
+            userInfo: null,
             serv: null,
             comments: [],
             isAdmin: false,
@@ -196,12 +210,30 @@ export default {
             errors: {},
             comment: '',
             replyTexts: {},
+            showEditModal: false,
+            editId: null,
+            editText:'',
         };
     },
     mounted() {
         this.getServ();
+        this.getUser();
     },
     methods: {
+        editComment(id, text){
+            this.editId = id;
+            this.editText = text;
+            this.showEditModal = true;
+        },
+        saveEdit(){
+            let form = new FormData();
+            form.append('comment', this.editText);
+
+            this.datasend('comment/update/' + this.editId, 'POST',form).then(() => {
+                this.showEditModal = false;
+                this.getServ();
+            })
+        },
         likeClick(commentId) {
             if (!this.isAuth) {
                 alert('Авторизуйтесь');
@@ -215,7 +247,11 @@ export default {
                 }
             });
         },
-
+        getUser(){
+            this.datasend('user').then(res => {
+                this.userInfo = res;
+            })
+        },
         getServ() {
             this.datasend((this.isAuth ? 'servAuth/' : 'serv/') + this.pageId)
                 .then((result) => {
