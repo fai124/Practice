@@ -52,6 +52,7 @@
                             name="comment"
                             v-model="comment"
                         />
+                        <input type="file" name="images" multiple @change="addImages">
                         <img
                             class="close-icon"
                             src="/icons/close0.svg"
@@ -95,10 +96,12 @@
                 <div class="comment-bubble">
                     {{ value.comment }}
                 </div>
-                <button v-if="userInfo && value.user_id === userInfo.id"
-                @click="editComment(value.id, value.comment)"
-                class = "edit-btn">
-                изменить
+                <button
+                    v-if="userInfo && value.user_id === userInfo.id"
+                    @click="editComment(value.id, value.comment)"
+                    class="edit-btn"
+                >
+                    изменить
                 </button>
 
                 <div v-if="showEditModal" class="modal">
@@ -120,15 +123,19 @@
                             alt="like"
                         />
                     </button>
-                    <span class="likes-count" :class="{like_button: isLike}">{{ value.likes_count }}</span>
+                    <span
+                        class="likes-count"
+                        :class="{ like_button: isLike }"
+                        >{{ value.likes_count }}</span
+                    >
                 </div>
 
                 <div class="comment-actions_X">
                     <button
                         class="like_button"
                         @click.prevent="deleteComment(value.id)"
-                    > 
-                    <span class="likes-count">X</span>
+                    >
+                        <span class="likes-count">X</span>
                     </button>
                 </div>
 
@@ -212,7 +219,7 @@ export default {
             replyTexts: {},
             showEditModal: false,
             editId: null,
-            editText:'',
+            editText: '',
         };
     },
     mounted() {
@@ -220,19 +227,27 @@ export default {
         this.getUser();
     },
     methods: {
-        editComment(id, text){
+        addImages(e) {
+            const files = e.target.files;
+            for (let i = 0; i < files.length; i++) {
+                this.images.push(files[i]);
+            }
+        },
+        editComment(id, text) {
             this.editId = id;
             this.editText = text;
             this.showEditModal = true;
         },
-        saveEdit(){
+        saveEdit() {
             let form = new FormData();
             form.append('comment', this.editText);
 
-            this.datasend('comment/update/' + this.editId, 'POST',form).then(() => {
-                this.showEditModal = false;
-                this.getServ();
-            })
+            this.datasend('comment/update/' + this.editId, 'POST', form).then(
+                () => {
+                    this.showEditModal = false;
+                    this.getServ();
+                },
+            );
         },
         likeClick(commentId) {
             if (!this.isAuth) {
@@ -247,10 +262,10 @@ export default {
                 }
             });
         },
-        getUser(){
-            this.datasend('user').then(res => {
+        getUser() {
+            this.datasend('user').then((res) => {
                 this.userInfo = res;
-            })
+            });
         },
         getServ() {
             this.datasend((this.isAuth ? 'servAuth/' : 'serv/') + this.pageId)
@@ -259,7 +274,6 @@ export default {
                     this.comments = result.comments || [];
                     this.isAdmin = result.isAdmin || false;
                     this.isLike = result.isLike || false;
-
 
                     this.replyTexts = {};
                     this.comments.forEach((comment) => {
@@ -312,8 +326,8 @@ export default {
                     if (result.errors) {
                         this.errors = result.errors;
                     } else {
-                        this.replyTexts[parentId] = ''; 
-                        this.getServ(); 
+                        this.replyTexts[parentId] = '';
+                        this.getServ();
                     }
                 })
                 .catch((err) => {
