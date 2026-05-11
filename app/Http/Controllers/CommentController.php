@@ -30,18 +30,34 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommentRequest $request, Serv $serv)
-    {
-        $comment = New Comment();
-        $comment->user_id = Auth::id();
-        $comment->serv_id = $serv->id;
-        $comment->comment = $request->comment;
-        $comment->parent_id = $request->parent_id ?? null;
-        $comment->save();
-        $comment->load('user');
-        return response()->json(['message' => 'ok', 'comment' => $comment]);
+    
+public function store(StoreCommentRequest $request, Serv $serv)
+{
+    $comment = new Comment();
+    $comment->user_id = Auth::id();
+    $comment->serv_id = $serv->id;
+    $comment->comment = $request->comment;
+    $comment->parent_id = $request->parent_id ?? null;
+    $comment->save();
+
+    // Сохраняем до 3 фото
+    if ($request->hasFile('photos')) {
+        $files = $request->file('photos');
+        $allowed = min(3, count($files));
+
+        for ($i = 0; $i < $allowed; $i++) {
+            $path = $files[$i]->store('comment-photos', 'public');
+            $comment->photos()->create(['photo' => $path]);
+        }
     }
 
+$comment->load('user', 'photos');
+
+return response()->json([
+    'message' => 'ok',
+    'comment' => $comment
+    ]);
+}
 
 
     /**
@@ -69,6 +85,12 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        if (Auth::id() !== $comment->user_id && Auth::user()->role !== 'admin') {
+        return response()->json(['error' => 'нет прав'], 403);
+    }
+
+    $comment->delete();
+
+    return response()->json(['message' => 'ok']);
     }
 }

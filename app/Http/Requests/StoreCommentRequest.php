@@ -18,8 +18,10 @@ class StoreCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "comment"=>"required",
-            "parent_id" => "nullable|exists:comments,id"
+        "comment" => "required|string|max:1000",
+        "parent_id" => "nullable|exists:comments,id",
+        "photos" => "nullable|array|max:3",
+        "photos.*" => "image|mimes:jpg,jpeg,png,gif|max:2048"
         ];
     }
 }

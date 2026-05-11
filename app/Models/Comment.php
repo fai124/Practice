@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\CommentPhoto;
 use App\Models\User;
 use App\Models\Like;
 
@@ -31,4 +32,8 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class, 'parent_id')->with('user');
     }
+    public function photos()
+{
+    return $this->hasMany(\App\Models\CommentPhoto::class);
+}
 }
