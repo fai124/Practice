@@ -40,13 +40,11 @@ public function store(StoreCommentRequest $request, Serv $serv)
     $comment->parent_id = $request->parent_id ?? null;
     $comment->save();
 
-    // Сохраняем до 3 фото
-    if ($request->hasFile('photos')) {
+    if($request->hasFile('photos')) {
         $files = $request->file('photos');
-        $allowed = min(3, count($files));
 
-        for ($i = 0; $i < $allowed; $i++) {
-            $path = $files[$i]->store('comment-photos', 'public');
+        foreach ($files as $file) {
+            $path = $file->store('comment-photos', 'public');
             $comment->photos()->create(['photo' => $path]);
         }
     }

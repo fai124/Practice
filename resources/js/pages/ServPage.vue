@@ -232,7 +232,7 @@ export default {
         formData.append('comment', text);
 
         this.images.forEach((image, index) => {
-            formData.append(`photos[${index}]`, image);
+            formData.append(`photos[]`, image);
         });
 
         this.datasend('comment/' + this.pageId, 'POST', formData)
@@ -242,6 +242,7 @@ export default {
                 } else {
                     this.comment = '';
                     this.images = [];
+                    document.querySelector('input[type="file"]').value = '';
                     this.errors = {};
                     this.getServ();
                 }

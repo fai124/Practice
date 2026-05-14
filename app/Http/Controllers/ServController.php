@@ -44,7 +44,7 @@ class ServController extends Controller
 
         $comments = Comment::with(['user', 'replies' => function($q) {
          $q->with('user');
-       }])
+       }, 'photos'])
          ->where('serv_id', $serv->id)
          ->whereNull('parent_id')
          ->get();
