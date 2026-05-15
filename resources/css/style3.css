@@ -14,7 +14,7 @@
 
 
 
-/* Frame-4 контейнер */
+
 .frame-4 {
   background: #ffffff;
   width: 100%;
@@ -25,7 +25,16 @@
   margin: 0 auto;
 }
 
-/* ========== БЛОК АВАТАРА (ШАПКА) ========== */
+.pencil,
+.pencil * {
+  box-sizing: border-box;
+}
+.pencil {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  object-fit: cover;
+}
 .avatar-label-group {
   display: flex;
   flex-direction: row;
@@ -353,11 +362,16 @@
   min-height: 55px;
   position: absolute;
   left: 0;
-  top: 50px;
+  top: 130px;
   margin-top: 8px;
   padding: 12px 20px;
   word-wrap: break-word;
   box-sizing: border-box;
+}
+.photo-bubble {
+  position: relative;
+  left: 0;
+  top: 10px;
 }
 .comment-bubble p,
 .comment-bubble span {
@@ -403,6 +417,15 @@
   margin-left: 650px;
 }
 
+.comment-actions_edit {
+  display: flex;
+  flex-direction: row;
+  gap: 22px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: -40px;
+  margin-left: 700px;
+}
 .like_button,
 .like_button:before
  {

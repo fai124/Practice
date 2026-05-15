@@ -57,25 +57,13 @@
                         </div>
                     </div>
                 </div>
-
+                <div v-if="value.photos && value.photos.length" class="photo-bubble">
+                    <img v-for="(photo, index) in value.photos" :key="index" :src="PUBLIC + photo.photo" alt="фото"
+                        style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;" />
+                </div>
                 <div class="comment-bubble">
                     {{ value.comment }}
                 </div>
-                <!-- Фото к комментарию -->
-<div v-if="value.photos && value.photos.length" style="margin: 8px 0; display: flex; gap: 4px; flex-wrap: wrap;">
-    <img
-    v-for="(photo, index) in value.photos"
-    :key="index"
-    :src="PUBLIC + photo.photo"
-    alt="фото"
-    style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;"
-/>
-</div>
-                <button v-if="userInfo && value.user_id === userInfo.id" @click="editComment(value.id, value.comment)"
-                    class="edit-btn">
-                    изменить
-                </button>
-
                 <div v-if="showEditModal" class="modal">
                     <div class="modal-content">
                         <textarea v-model="editText"></textarea>
@@ -94,6 +82,13 @@
                 <div class="comment-actions_X">
                     <button class="like_button" @click.prevent="deleteComment(value.id)">
                         <span class="likes-count">X</span>
+                    </button>
+                </div>
+
+                <div class="comment-actions_edit">
+                    <button v-if="userInfo && value.user_id === userInfo.id"
+                        @click="editComment(value.id, value.comment)" class="like_button">
+                        <img class="pencil" src="/icons/pencil.png" />
                     </button>
                 </div>
 
@@ -167,120 +162,120 @@ export default {
         addImages(e) {
             this.images = Array.from(e.target.files).slice(0, 3);
         },
-    editComment(id, text) {
-        this.editId = id;
-        this.editText = text;
-        this.showEditModal = true;
-    },
-    saveEdit() {
-        let form = new FormData();
-        form.append('comment', this.editText);
+        editComment(id, text) {
+            this.editId = id;
+            this.editText = text;
+            this.showEditModal = true;
+        },
+        saveEdit() {
+            let form = new FormData();
+            form.append('comment', this.editText);
 
-        this.datasend('comment/update/' + this.editId, 'POST', form).then(
-            () => {
-                this.showEditModal = false;
-                this.getServ();
-            },
-        );
-    },
-    likeClick(commentId) {
-        if (!this.isAuth) {
-            alert('Авторизуйтесь');
-            return;
-        }
-        this.datasend('like/' + commentId, 'POST').then((result) => {
-            const comment = this.comments.find((c) => c.id === commentId);
-            if (comment) {
-                comment.likes_count = result.like_count;
-                comment.isLike = result.isLike;
+            this.datasend('comment/update/' + this.editId, 'POST', form).then(
+                () => {
+                    this.showEditModal = false;
+                    this.getServ();
+                },
+            );
+        },
+        likeClick(commentId) {
+            if (!this.isAuth) {
+                alert('Авторизуйтесь');
+                return;
             }
-        });
-    },
-    getUser() {
-        this.datasend('user').then((res) => {
-            this.userInfo = res;
-        });
-    },
-    getServ() {
-        this.datasend((this.isAuth ? 'servAuth/' : 'serv/') + this.pageId)
-            .then((result) => {
-                this.serv = result.serv;
-                this.comments = result.comments || [];
-                this.isAdmin = result.isAdmin || false;
-                this.isLike = result.isLike || false;
+            this.datasend('like/' + commentId, 'POST').then((result) => {
+                const comment = this.comments.find((c) => c.id === commentId);
+                if (comment) {
+                    comment.likes_count = result.like_count;
+                    comment.isLike = result.isLike;
+                }
+            });
+        },
+        getUser() {
+            this.datasend('user').then((res) => {
+                this.userInfo = res;
+            });
+        },
+        getServ() {
+            this.datasend((this.isAuth ? 'servAuth/' : 'serv/') + this.pageId)
+                .then((result) => {
+                    this.serv = result.serv;
+                    this.comments = result.comments || [];
+                    this.isAdmin = result.isAdmin || false;
+                    this.isLike = result.isLike || false;
 
-                this.replyTexts = {};
-                this.comments.forEach((comment) => {
-                    this.replyTexts[comment.id] = '';
+                    this.replyTexts = {};
+                    this.comments.forEach((comment) => {
+                        this.replyTexts[comment.id] = '';
+                    });
+
+                    console.log('[getServ] Результат:', result);
+                })
+                .catch((err) => {
+                    console.error('Ошибка загрузки услуги:', err);
                 });
+        },
 
-                console.log('[getServ] Результат:', result);
-            })
-            .catch((err) => {
-                console.error('Ошибка загрузки услуги:', err);
+        addComment() {
+            const text = this.comment?.trim();
+            if (!text) {
+                this.errors = { comment: ['Введите текст комментария'] };
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append('comment', text);
+
+            this.images.forEach((image, index) => {
+                formData.append(`photos[]`, image);
             });
-    },
 
-    addComment() {
-        const text = this.comment?.trim();
-        if (!text) {
-            this.errors = { comment: ['Введите текст комментария'] };
-            return;
-        }
+            this.datasend('comment/' + this.pageId, 'POST', formData)
+                .then((result) => {
+                    if (result.errors) {
+                        this.errors = result.errors;
+                    } else {
+                        this.comment = '';
+                        this.images = [];
+                        document.querySelector('input[type="file"]').value = '';
+                        this.errors = {};
+                        this.getServ();
+                    }
+                })
+                .catch((err) => {
+                    console.error('Ошибка:', err);
+                });
+        },
 
-        let formData = new FormData();
-        formData.append('comment', text);
+        // Отправка ответа
+        sendReply(parentId) {
+            const text = this.replyTexts[parentId]?.trim();
+            if (!text) return;
 
-        this.images.forEach((image, index) => {
-            formData.append(`photos[]`, image);
-        });
+            let formData = new FormData();
+            formData.append('comment', text);
+            formData.append('parent_id', parentId);
 
-        this.datasend('comment/' + this.pageId, 'POST', formData)
-            .then((result) => {
-                if (result.errors) {
-                    this.errors = result.errors;
-                } else {
-                    this.comment = '';
-                    this.images = [];
-                    document.querySelector('input[type="file"]').value = '';
-                    this.errors = {};
-                    this.getServ();
-                }
-            })
-            .catch((err) => {
-                console.error('Ошибка:', err);
+            this.datasend('comment/' + this.pageId, 'POST', formData)
+                .then((result) => {
+                    if (result.errors) {
+                        this.errors = result.errors;
+                    } else {
+                        this.replyTexts[parentId] = '';
+                        this.getServ();
+                    }
+                })
+                .catch((err) => {
+                    console.error('Ошибка при отправке ответа:', err);
+                });
+        },
+
+        deleteComment(commentId) {
+            this.datasend('destroy/' + commentId, 'DELETE').then((result) => {
+                console.log(result);
+                this.getServ();
             });
+        },
     },
-
-    // Отправка ответа
-    sendReply(parentId) {
-        const text = this.replyTexts[parentId]?.trim();
-        if (!text) return;
-
-        let formData = new FormData();
-        formData.append('comment', text);
-        formData.append('parent_id', parentId);
-
-        this.datasend('comment/' + this.pageId, 'POST', formData)
-            .then((result) => {
-                if (result.errors) {
-                    this.errors = result.errors;
-                } else {
-                    this.replyTexts[parentId] = '';
-                    this.getServ();
-                }
-            })
-            .catch((err) => {
-                console.error('Ошибка при отправке ответа:', err);
-            });
-    },
-
-    deleteComment(commentId) {
-        this.datasend('destroy/' + commentId, 'DELETE').then((result) => {
-            console.log(result);
-            this.getServ();
-        });
-    },
-},
 };
 </script>
