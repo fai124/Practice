@@ -7,43 +7,42 @@
         href="https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@400;500&display=swap"
         rel="stylesheet"
     />
-    <div class="frame-3">
-        <!-- Аватар и информация пользователя -->
-         <AvatarComponent :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
-         <button class="create" @click.prevent="changePage('ServAddPage')"><span class="card-button-text">Создать</span></button>
-
-        <!-- Заголовок "Категории" -->
-        <h1 class="categories-title">Категории</h1>
-
-        <!-- Линия-разделитель -->
-        <div class="line-1"></div>
-
-        <!-- Сетка карточек услуг -->
-        <div class="cards-grid">
-            <!-- Карточка 1 -->
-             <ServComponent v-for="serv in servs.data" :serv="serv" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
-        </div>
-
-        <!-- Пагинация -->
-        <div class="pagination">
-            <button class="pagination-button" @click.prevent="getServ(page-1)" :class="{disabled: page === 1}">
-                <img
-                    class="arrow-icon"
-                    src="/icons/arrow-left0.svg"
-                    alt="back"
-                />
-                <span class="pagination-text">Назад</span>
-            </button>
-            <button class="pagination-button" @click.prevent="getServ(servs.current_page+1)" :class="{disabled: servs.current_page===servs.last_page}">
-                <span class="pagination-text">Вперед</span>
-                <img
-                    class="arrow-icon"
-                    src="/icons/arrow-right0.svg"
-                    alt="forward"
-                />
-            </button>
-        </div>
+      <div class="frame-3">
+    
+    <AvatarComponent :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" />
+    <!-- Кнопка создания — теперь правильно выровнена -->
+    <div style="display: flex; margin-bottom: 20px;">
+      <button class="create" @click.prevent="changePage('ServAddPage')">
+        <span class="card-button-text">Создать</span>
+      </button>
     </div>
+
+    <h1 class="categories-title">Категории</h1>
+    <div class="line-1"></div>
+
+    <div class="cards-grid">
+      <ServComponent 
+        v-for="serv in servs.data" 
+        :key="serv.id"
+        :serv="serv" 
+        :datasend="datasend" 
+        :changePage="changePage" 
+        :pageId="pageId" 
+        :PUBLIC="PUBLIC"
+      />
+    </div>
+
+    <div class="pagination">
+      <button class="pagination-button" @click.prevent="getServ(page-1)" :class="{ disabled: page === 1 }">
+        <img class="arrow-icon" src="/icons/arrow-left0.svg" alt="back" />
+        <span class="pagination-text">Назад</span>
+      </button>
+      <button class="pagination-button" @click.prevent="getServ(servs.current_page+1)" :class="{ disabled: servs.current_page === servs.last_page }">
+        <span class="pagination-text">Вперед</span>
+        <img class="arrow-icon" src="/icons/arrow-right0.svg" alt="forward" />
+      </button>
+    </div>
+  </div>
 </template>
 <script>
 import AvatarComponent from '@/components/AvatarComponent.vue';

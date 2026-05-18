@@ -28,9 +28,9 @@
                         name="fullname"
                         v-model="fullname"
                     />
-                            <div class = "alert alert-danger" v-if="errors.fullname">
-        {{ errors.fullname.join('. ') }}
-    </div>
+                    <div class="alert alert-danger" v-if="errors.fullname">
+                        {{ errors.fullname.join('. ') }}
+                    </div>
                 </div>
             </div>
 
@@ -54,9 +54,9 @@
                         name="email"
                         v-model="email"
                     />
-                    <div class = "alert alert-danger" v-if="errors.email">
-        {{ errors.email.join('. ') }}
-    </div>
+                    <div class="alert alert-danger" v-if="errors.email">
+                        {{ errors.email.join('. ') }}
+                    </div>
                 </div>
             </div>
 
@@ -80,9 +80,9 @@
                         name="phone"
                         v-model="number"
                     />
-                    <div class = "alert alert-danger" v-if="errors.number">
-        {{ errors.number.join('. ') }}
-    </div>
+                    <div class="alert alert-danger" v-if="errors.number">
+                        {{ errors.number.join('. ') }}
+                    </div>
                 </div>
             </div>
 
@@ -106,9 +106,9 @@
                         name="login"
                         v-model="username"
                     />
-                    <div class = "alert alert-danger" v-if="errors.username">
-        {{ errors.username.join('. ') }}
-    </div>
+                    <div class="alert alert-danger" v-if="errors.username">
+                        {{ errors.username.join('. ') }}
+                    </div>
                 </div>
             </div>
 
@@ -132,21 +132,26 @@
                         name="password"
                         v-model="password"
                     />
-                    <div class = "alert alert-danger" v-if="errors.password">
-        {{ errors.password.join('. ') }}
-    </div>
+                    <div class="alert alert-danger" v-if="errors.password">
+                        {{ errors.password.join('. ') }}
+                    </div>
                 </div>
             </div>
 
             <!-- Helper ссылка -->
             <div class="helper">
                 Уже зарегистрированы?
-                <a href="#" class="helper-link" @click.prevent="changePage('AuthPage')">Авторизуйтесь</a>
+                <a
+                    href="#"
+                    class="helper-link"
+                    @click.prevent="changePage('AuthPage')"
+                    >Авторизуйтесь</a
+                >
             </div>
 
             <!-- Кнопка -->
             <button type="button" class="button" @click="register">
-                <span class="button-text" >Регистрация</span>
+                <span class="button-text">Регистрация</span>
             </button>
         </form>
     </div>
@@ -154,7 +159,14 @@
 <script>
 name: 'RegPage';
 export default {
-    props: ['datasend', 'PUBLIC', 'pageId', 'changePage','changeToken','logout'],
+    props: [
+        'datasend',
+        'PUBLIC',
+        'pageId',
+        'changePage',
+        'changeToken',
+        'logout',
+    ],
     data() {
         return {
             username: null,
@@ -181,7 +193,7 @@ export default {
                 }
                 if (result.token) {
                     this.changeToken(result.token);
-                    this.changePage('CategoryPage')
+                    this.changePage('CategoryPage');
                 }
             });
             // .catch((error) => console.error(error));
