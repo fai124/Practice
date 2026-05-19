@@ -1,19 +1,11 @@
 <template>
-    <!-- Wrapper -->
     <div id="wrapper">
-        <!-- Header -->
-
-        <!-- Menu -->
         <AuthPage v-if="page == 'AuthPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :changeToken="changeToken"/>
         <RegPage v-if="page == 'RegPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :changeToken="changeToken" :logout="logout"/>
         <CategoryPage v-if="page == 'CategoryPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <PersonalPage v-if="page == 'PersonalPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" :logout="logout" :changeToken="changeToken"/>
         <ServPage v-if="page == 'ServPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
         <ServAddPage v-if="page == 'ServAddPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
-        <HomePage v-if="page == 'HomePage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
-        <PostAdd v-if="page == 'PostAdd'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
-        <SinglePage v-if="page == 'SinglePage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
-        <UserPage v-if="page == 'UserPage'" :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC"/>
     </div>
 </template>
 
@@ -107,9 +99,6 @@ export default {
                 );
             }
 
-            //let formdata = new FormData();
-            //formdata.append('email', 'asd@student.com');
-
             let requestOptions = {
                 method: method,
                 headers: myHeaders,
@@ -138,6 +127,4 @@ export default {
         },
     },
 };
-//.then((result) => console.log(result))
-//.catch((error) => console.error(error));
 </script>

@@ -10,7 +10,6 @@
       <div class="frame-3">
     
     <AvatarComponent :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" />
-    <!-- Кнопка создания — теперь правильно выровнена -->
     <div style="display: flex; margin-bottom: 20px;">
       <button class="create" @click.prevent="changePage('ServAddPage')">
         <span class="card-button-text">Создать</span>

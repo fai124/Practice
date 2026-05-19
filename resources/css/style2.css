@@ -1,4 +1,3 @@
-/* Reset & base */
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +9,6 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-/* Frame-3 контейнер */
 .frame-3 {
   max-width: 1600px;
   margin: 0 auto;
@@ -19,7 +17,6 @@ body {
   min-height: 100vh;
 }
 
-/* Кнопка "Создать" */
 .create {
   background: #227441;
   border-radius: 10px;
@@ -43,7 +40,6 @@ body {
   font-weight: 500;
 }
 
-/* Заголовок "Категории" */
 .categories-title {
   color: #000000;
   font-family: 'Mukta Malar', sans-serif;
@@ -53,14 +49,12 @@ body {
   clear: both;
 }
 
-/* Линия-разделитель */
 .line-1 {
   border-top: 2px solid #227441;
   width: 100%;
   margin-bottom: 24px;
 }
 
-/* Сетка карточек — 2 столбика, но карточки меньше */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -71,7 +65,6 @@ body {
   margin-right: auto;
 }
 
-/* Карточка услуги — компактная */
 .card {
   background: #ffffff;
   border-radius: 12px;
@@ -92,7 +85,6 @@ body {
   border-color: #227441;
 }
 
-/* Изображение карточки — меньше высота */
 .card-image {
   width: 100%;
   aspect-ratio: 16 / 10;
@@ -100,7 +92,6 @@ body {
   display: block;
 }
 
-/* Тело карточки — компактные отступы */
 .card-body {
   padding: 14px;
   display: flex;
@@ -114,7 +105,6 @@ body {
   gap: 6px;
 }
 
-/* Заголовок карточки — меньший шрифт */
 .card-heading {
   color: #101828;
   text-align: center;
@@ -126,13 +116,11 @@ body {
   cursor: pointer;
 }
 
-/* Контейнер кнопки */
 .card-buttons {
   display: flex;
   justify-content: center;
 }
 
-/* Кнопка "Подробнее" — компактная */
 .card-button {
   background: #227441;
   border-radius: 8px;
@@ -163,7 +151,6 @@ body {
   font-weight: 500;
 }
 
-/* Пагинация */
 .pagination {
   display: flex;
   gap: 12px;
@@ -207,7 +194,6 @@ body {
   height: 14px;
 }
 
-/* Аватар компонент */
 .avatar-label-group {
   display: flex;
   align-items: center;
@@ -238,9 +224,7 @@ body {
   color: #6b7280;
 }
 
-/* ========== АДАПТИВНОСТЬ ========== */
 
-/* Планшеты */
 @media (max-width: 768px) {
   .frame-3 {
     padding: 16px;
@@ -280,7 +264,6 @@ body {
   }
 }
 
-/* Мобильные — 1 колонка */
 @media (max-width: 640px) {
   .frame-3 {
     padding: 12px;
@@ -336,7 +319,6 @@ body {
   }
 }
 
-/* Очень маленькие (390px) */
 @media (max-width: 390px) {
   .frame-3 {
     padding: 10px;

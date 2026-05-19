@@ -1,12 +1,8 @@
-/* Убираем глобальные стили body, которые ломают карточку */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-/* Убираем body стили, чтобы не влиять на родительскую страницу */
-/* Вместо этого все стили внутри .create-service-page */
 
 .create-service-page {
   width: 100%;
@@ -37,7 +33,6 @@
   gap: 20px;
 }
 
-/* Стили для пользовательской информации (если AvatarComponent их не предоставляет) */
 .user-info {
   display: flex;
   align-items: center;
@@ -138,7 +133,6 @@
   transition: all 0.2s;
 }
 
-/* Исправление для textarea - полная ширина */
 .form-textarea {
   min-height: 100px;
 }
@@ -156,7 +150,6 @@
   box-shadow: 0 0 0 2px rgba(34, 116, 65, 0.2);
 }
 
-/* Стили для file input - полная ширина */
 .file-input {
   background: #f9fafb;
   border: 1px solid #e5e7eb;
@@ -170,7 +163,6 @@
   display: block;
 }
 
-/* Стилизация кнопки выбора файла */
 .file-input::-webkit-file-upload-button {
   background: #f9fafb;
   border: 1px solid #d4d4d4;
@@ -190,7 +182,6 @@
   border-color: #b0b0b0;
 }
 
-/* Для Firefox */
 .file-input::file-selector-button {
   background: #f9fafb;
   border: 1px solid #d4d4d4;

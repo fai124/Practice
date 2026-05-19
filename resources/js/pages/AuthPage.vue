@@ -11,7 +11,6 @@
         <div class="rectangle-3"></div>
 
         <form class="frame-12" id="registration-form">
-            <!-- Логин -->
             <div class="input-form">
                 <div class="label">
                     <div class="text">
@@ -37,7 +36,6 @@
                 </div>
             </div>
 
-            <!-- Пароль -->
             <div class="input-form">
                 <div class="label">
                     <div class="text">
@@ -63,7 +61,6 @@
                 </div>
             </div>
 
-            <!-- Helper ссылка -->
             <div class="helper">
                 Еще не зарегистрированы?<a
                     href="#"
@@ -73,7 +70,6 @@
                 >
             </div>
 
-            <!-- Кнопка -->
             <button type="button" class="button" @click="auth">
                 <span class="button-text">Авторизация</span>
             </button>

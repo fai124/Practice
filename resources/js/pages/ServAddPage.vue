@@ -58,10 +58,8 @@
                 <button type="button" class="submit-btn" @click="servadd">Создать услугу</button>
             </form>
 
-            <!-- ИЗМЕНЕНО 2: добавлены недостающие закрывающие div'ы -->
         </div>
     </div>
-    <!-- ИЗМЕНЕНИЕ 2 КОНЧИЛОСЬ -->
 </template>
 
 <script>
@@ -95,7 +93,6 @@ export default {
                     this.changePage('CategoryPage', result.id);
                 }
             });
-            //.catch((error) => console.error(error));
         },
         getServ() {
             this.datasend('serv/' + this.pageId).then((result) => {

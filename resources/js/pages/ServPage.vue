@@ -79,7 +79,6 @@
                     {{ value.comment }}
                 </div>
                 
-                <!-- Кнопки с иконками -->
                 <div class="comment-actions-group">
                     <button class="comment-action-btn like-btn" @click.prevent="likeClick(value.id)">
                         <img class="heart-icon" src="/icons/heart0.svg" alt="like" />
@@ -134,12 +133,10 @@
         </div>
     </div>
 
-    <!-- Модальное окно для фото -->
     <div v-if="fullScreenImage" class="fullscreen-modal" @click="fullScreenImage = null">
         <img :src="fullScreenImage" class="fullscreen-image" @click.stop />
     </div>
 
-    <!-- Модальное окно для редактирования -->
     <div v-if="showEditModal" class="modal-overlay" @click.self="showEditModal = false">
         <div class="modal-container">
             <h3 class="modal-title">Редактировать комментарий</h3>

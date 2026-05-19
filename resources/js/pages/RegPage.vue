@@ -7,12 +7,10 @@
         href="https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@400;500&display=swap"
         rel="stylesheet"
     />
-    <!-- Шрифт -->
     <div class="frame-1">
         <div class="rectangle-2"></div>
 
         <form class="frame-12" id="registration-form">
-            <!-- ФИО -->
             <div class="input-form">
                 <div class="label">
                     <div class="text">
@@ -34,7 +32,6 @@
                 </div>
             </div>
 
-            <!-- Эл.Почта -->
             <div class="input-form">
                 <div class="label">
                     <div class="text">
@@ -60,7 +57,6 @@
                 </div>
             </div>
 
-            <!-- Номер телефона -->
             <div class="input-form">
                 <div class="label">
                     <div class="text">
@@ -86,7 +82,6 @@
                 </div>
             </div>
 
-            <!-- Логин -->
             <div class="input-form">
                 <div class="label">
                     <div class="text">
@@ -112,7 +107,6 @@
                 </div>
             </div>
 
-            <!-- Пароль -->
             <div class="input-form">
                 <div class="label">
                     <div class="text">
@@ -138,7 +132,6 @@
                 </div>
             </div>
 
-            <!-- Helper ссылка -->
             <div class="helper">
                 Уже зарегистрированы?
                 <a
@@ -149,7 +142,6 @@
                 >
             </div>
 
-            <!-- Кнопка -->
             <button type="button" class="button" @click="register">
                 <span class="button-text">Регистрация</span>
             </button>
@@ -196,7 +188,6 @@ export default {
                     this.changePage('CategoryPage');
                 }
             });
-            // .catch((error) => console.error(error));
         },
     },
 };

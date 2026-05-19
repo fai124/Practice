@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400,500,600,700&family=Mukta+Malar:wght@400;500&display=swap');
 
-/* Общие сбросы */
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +11,6 @@ body {
   background: #f5f7fa;
 }
 
-/* Frame-1 — центрированный контейнер */
 .frame-1 {
   min-height: 100vh;
   display: flex;
@@ -22,13 +20,11 @@ body {
   background: #ffffff;
 }
 
-/* Общий стиль для рамки (авторизация и регистрация) */
 .rectangle-2,
 .rectangle-3 {
-  display: none; /* скрываем старые абсолютные рамки */
+  display: none;
 }
 
-/* Новая адаптивная рамка-карточка */
 .frame-12 {
   position: relative;
   background: #ffffff;
@@ -41,14 +37,12 @@ body {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
 
-/* Форма внутри */
 #registration-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* Контейнер поля */
 .input-form {
   display: flex;
   flex-direction: column;
@@ -56,7 +50,6 @@ body {
   width: 100%;
 }
 
-/* Label */
 .label {
   display: flex;
   align-items: center;
@@ -71,7 +64,6 @@ body {
   line-height: 20px;
 }
 
-/* Поле ввода */
 .input-field {
   background: #f9fafb;
   border-radius: 12px;
@@ -89,14 +81,12 @@ body {
   background: #ffffff;
 }
 
-/* Иконка */
 .input-icon {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
 }
 
-/* Инпут */
 .input-text {
   flex: 1;
   background: transparent;
@@ -114,7 +104,6 @@ body {
   color: #9ca3af;
 }
 
-/* Alert ошибки — ВНУТРИ рамки, под полем */
 .alert.alert-danger {
   color: #dc2626;
   font-size: 12px;
@@ -128,7 +117,6 @@ body {
   word-break: break-word;
 }
 
-/* Helper ссылка */
 .helper {
   text-align: center;
   font-size: 13px;
@@ -149,7 +137,6 @@ body {
   text-decoration: underline;
 }
 
-/* Кнопка */
 .button {
   background: white;
   border: 1.5px solid #227441;
@@ -174,9 +161,7 @@ body {
   display: inline-block;
 }
 
-/* ========== АДАПТИВНОСТЬ ========== */
 
-/* Планшеты и маленькие ноутбуки */
 @media (max-width: 640px) {
   .frame-12 {
     padding: 24px 20px;
@@ -197,7 +182,6 @@ body {
   }
 }
 
-/* Мобильные 390px - 480px */
 @media (max-width: 480px) {
   .frame-1 {
     padding: 12px;
@@ -242,7 +226,6 @@ body {
   }
 }
 
-/* Очень маленькие (390px точно) */
 @media (max-width: 390px) {
   .frame-12 {
     padding: 18px 14px;

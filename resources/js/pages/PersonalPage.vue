@@ -8,7 +8,6 @@
         rel="stylesheet"
     />
     <div class="frame-5">
-        <!-- Кнопка "Назад" -->
         <button class="back-button">
             <a href="" @click.prevent="changePage('CategoryPage')"
                 ><img
@@ -18,7 +17,6 @@
             /></a>
         </button>
 
-        <!-- Блок с аватаром -->
         <div class="avatar-section">
             <img
                 class="profile-image"
@@ -40,9 +38,7 @@
             <span class="confirm-button-text">Выйти</span>
         </button>
 
-        <!-- Правая панель с формой и услугами -->
         <div class="profile-form-panel">
-            <!-- Форма редактирования данных -->
             <div class="edit-form">
                 <div class="input-group">
                     <div class="form-label">
@@ -108,7 +104,6 @@
                 </button>
             </div>
 
-            <!-- Блок добавления услуги -->
             <div class="add-service-section">
                 <h3 class="services-title">Добавить полученную услугу:</h3>
 
@@ -150,7 +145,6 @@
                 </button>
             </div>
 
-            <!-- Список услуг пользователя -->
             <h3 class="services-title" style="margin-top: 30px">
                 Мои полученные услуги:
             </h3>
@@ -190,7 +184,6 @@
     </div>
 </template>
 <script>
-import { triggerRef } from 'vue';
 
 export default {
     name: 'PersonalPage',
