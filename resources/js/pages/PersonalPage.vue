@@ -46,7 +46,7 @@
             <div class="edit-form">
                 <div class="input-group">
                     <div class="form-label">
-                        <span class="form-label-text">ФИО</span>
+                        <span class="form-label-text-alt">ФИО</span>
                     </div>
                     <div class="form-input-field">
                         <img
@@ -62,7 +62,7 @@
                         />
                     </div>
                 </div>
-
+<br>
                 <div class="input-group">
                     <div class="form-label">
                         <span class="form-label-text-alt">Эл.Почта</span>
@@ -81,7 +81,7 @@
                         />
                     </div>
                 </div>
-
+<br>
                 <div class="input-group">
                     <div class="form-label">
                         <span class="form-label-text-alt">Номер телефона</span>
@@ -131,7 +131,7 @@
                         </select>
                     </div>
                 </div>
-
+<br>
                 <div class="input-group">
                     <div class="form-label">
                         <span class="form-label-text">Дата получения</span>

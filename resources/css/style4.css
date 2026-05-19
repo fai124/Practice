@@ -16,10 +16,7 @@
   top: 24px;
   left: 24px;
   z-index: 100;
-  background: rgba(0, 96, 69, 0.9);
-  backdrop-filter: blur(8px);
   border: none;
-  border-radius: 60px;
   padding: 8px;
   display: flex;
   align-items: center;
@@ -29,16 +26,9 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.frame-5 .back-button:hover {
-  background: #006045;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 96, 69, 0.4);
-}
-
 .frame-5 .back-icon {
   width: 28px;
   height: 28px;
-  filter: brightness(0) invert(1);
   display: block;
 }
 
@@ -217,7 +207,7 @@
 
 /* Кнопка подтверждения */
 .frame-5 .confirm-button {
-  background: linear-gradient(135deg, #006045 0%, #008055 100%);
+  background: #006045;
   border-radius: 40px;
   border: none;
   padding: 12px 28px;

@@ -7,15 +7,13 @@
         href="https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@400;500&display=swap"
         rel="stylesheet"
     />
-    <div class="create-service-page">
-        <div class="service-card">
-            <!-- ИЗМЕНЕНО 1: AvatarComponent обёрнут в card-header -->
-            <div class="card-header">
+    <div class="card-header">
                 <button class="back-button" aria-label="Назад" @click.prevent="changePage('CategoryPage')">
                     <img src="/icons/corner-up-left0.svg" alt="" />
                 </button>
             </div>
-            <!-- ИЗМЕНЕНИЕ 1 КОНЧИЛОСЬ -->
+    <div class="create-service-page">
+        <div class="service-card">
 
             <h1 class="form-title">Создание услуги</h1>
 
