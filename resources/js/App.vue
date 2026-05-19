@@ -10,10 +10,6 @@
 </template>
 
 <script>
-import HomePage from './pages/HomePage.vue';
-import PostAdd from './pages/PostAdd.vue';
-import SinglePage from './pages/SinglePage.vue';
-import UserPage from './pages/UserPage.vue';
 import RegPage from './pages/RegPage.vue';
 import AuthPage from './pages/AuthPage.vue';
 import CategoryPage from './pages/CategoryPage.vue';
@@ -34,10 +30,6 @@ export default {
         };
     },
     components: {
-        HomePage,
-        PostAdd,
-        SinglePage,
-        UserPage,
         RegPage,
         AuthPage,
         CategoryPage,
