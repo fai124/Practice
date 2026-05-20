@@ -56,6 +56,8 @@ export default {
     },
     data() {
         return {
+            userInfo: null,
+            isAdmin: false,
             servs: [],
             page: 1,
             populars:[],
@@ -63,17 +65,24 @@ export default {
     },
     mounted() {
             this.getServ();
+            this.getUser();
     },
     methods: {
         getServ(page = 1) {
             this.datasend('servs?page=' + page)
             .then((result) => {
+                this.isAdmin = result.isAdmin || false;
                 this.servs = result.servs;
                 this.page = result.current_page;
                 this.populars = result.populars;
                 console.log(result);
             });
         },
+        getUser() {
+            this.datasend('user').then((res) => {
+                this.userInfo = res;
+            });
+        }
     },
 };
 </script>

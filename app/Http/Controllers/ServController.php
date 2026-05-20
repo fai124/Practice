@@ -75,11 +75,4 @@ class ServController extends Controller
             'isAdmin' => $isAdmin
         ]);
     }
-
-    public function destroy($commentId)
-    {
-        $comment = Comment::findOrFail($commentId);
-        $comment->delete();
-        return response()->json(['message' => "ok"]);
-    }
 }
