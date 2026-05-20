@@ -17,8 +17,8 @@ class UserServiceController extends Controller
     }
 
     $services = $user->services()
-        ->with('user')           // автор услуги
-        ->withPivot('service_date') // обязательно!
+        ->with('user')
+        ->withPivot('service_date')
         ->get();
 
     return response()->json($services);
@@ -38,12 +38,6 @@ class UserServiceController extends Controller
         ]);
         
         $user = Auth::user();
-        
-        //$exists = $user->services()->where('serv_id', $request->serv_id)->exists();
-        //if ($exists) {
-            //return response()->json(['error' => 'Услуга уже добавлена'], 422);
-        //}
-        
         $user->services()->attach($request->serv_id, [
             'service_date' => $request->service_date
         ]);

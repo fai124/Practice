@@ -169,8 +169,6 @@
   font-family: 'Inter', sans-serif;
   font-size: 18px;
   font-weight: 600;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
