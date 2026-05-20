@@ -17,8 +17,11 @@ class ServController extends Controller
     {
         $servs = Serv::with('user')->paginate(4);
         $populars = Serv::with('user')->limit(4)->get();
-        
-        return response()->json(["servs" => $servs, 'populars' => $populars]);
+        $isAdmin = false;
+        if (Auth::check() && Auth::user()->role === 'admin') {
+        $isAdmin = true;
+        }
+        return response()->json(["servs" => $servs, 'populars' => $populars, "isAdmin" => $isAdmin]);
     }
 
     public function servuser(User $user)

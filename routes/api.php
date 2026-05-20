@@ -12,12 +12,12 @@ Route::post('/register', [UserController::class, 'register']);
 Route::get('/serv/{serv}', [ServController::class, 'show']);
 Route::post('/auth', [UserController::class, 'auth']);
 Route::get('/user/{user}', [ServController::class, 'servuser']);
-Route::get('/servs', [ServController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::get('/servs', [ServController::class, 'index']);
     Route::get('/my-services', [UserServiceController::class, 'getUserServices']);
     Route::get('/available-services', [UserServiceController::class, 'getAvailableServices']);
     Route::post('/add-service', [UserServiceController::class, 'addServiceToUser']);

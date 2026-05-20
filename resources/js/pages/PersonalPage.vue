@@ -126,6 +126,9 @@
                         </select>
                     </div>
                 </div>
+                <div v-if="errors.serv_id" class="error-text">
+    {{ errors.serv_id.join(', ') }}
+</div>
 <br>
                 <div class="input-group">
                     <div class="form-label">
@@ -139,6 +142,9 @@
                         />
                     </div>
                 </div>
+                <div v-if="errors.service_date" class="error-text">
+    {{ errors.service_date.join(', ') }}
+</div>
                 <br>
                 <button class="confirm-button" @click="addServiceToUser">
                     <span class="confirm-button-text">Добавить услугу</span>
@@ -265,17 +271,24 @@ export default {
         },
 
         addServiceToUser() {
-            let formdata = new FormData();
-            formdata.append('serv_id', this.selectedServiceId);
-            formdata.append('service_date', this.serviceDate);
+    let formdata = new FormData();
+    formdata.append('serv_id', this.selectedServiceId || '');
+    formdata.append('service_date', this.serviceDate || '');
 
-            this.datasend('add-service', 'POST', formdata)
-                .then(() => {
-                    this.selectedServiceId = null;
-                    this.serviceDate = '';
-                    this.loadUserServices();
-                })
-        },
+    this.datasend('add-service', 'POST', formdata)
+        .then((result) => {
+            if (result.errors) {
+                this.errors = result.errors;
+            } else {
+                this.selectedServiceId = null;
+                this.serviceDate = '';
+                this.loadUserServices();
+            }
+        })
+        .catch((err) => {
+            console.error('Ошибка:', err);
+        });
+},
 
         formatDate(date) {
             if (!date) return 'Не указана';

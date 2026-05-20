@@ -10,7 +10,7 @@
       <div class="frame-3">
     
     <AvatarComponent :datasend="datasend" :changePage="changePage" :pageId="pageId" :PUBLIC="PUBLIC" />
-    <div style="display: flex; margin-bottom: 20px;">
+    <div v-if="isAdmin" style="display: flex; margin-bottom: 20px;">
       <button class="create" @click.prevent="changePage('ServAddPage')">
         <span class="card-button-text">Создать</span>
       </button>

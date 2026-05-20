@@ -337,7 +337,12 @@
   padding-top: 8px;
   border-top: 1px solid #e5e7eb;
 }
-
+.error-text {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 4px;
+    font-style: italic;
+}
 
 @media (max-width: 1400px) {
   .frame-5 {
