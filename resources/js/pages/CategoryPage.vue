@@ -16,7 +16,7 @@
       </button>
     </div>
 
-    <h1 class="categories-title">Категории</h1>
+    <h1 class="categories-title">Услуги</h1>
     <div class="line-1"></div>
 
     <div class="cards-grid">
